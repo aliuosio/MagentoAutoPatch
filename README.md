@@ -24,7 +24,7 @@ The **Patch AutoUpdater** module for Magento 2 automates the process of checking
 
     # automatic
     crontab -e as root
-    * * * * * /usr/bin/php /path/to/magento/bin/magento patch:update
+    * * * * * /path/to/magento/bin/magento patch:update
 
 
 
