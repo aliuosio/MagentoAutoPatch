@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+* @author     Osiozekhai Aliu
+* @package    Osio_MagentoAutoPatch
+* @copyright  Copyright (c) 2024 Osio
+*
+* For the full copyright and license information, please view the LICENSE
+* file that was distributed with this source code.
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="patch_update" xsi:type="object">Osio\MagentoAutoPatch\Console\UpdatePatches</item>
+            </argument>
+        </arguments>
+    </type>
+</config>
