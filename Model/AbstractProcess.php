@@ -12,26 +12,19 @@ namespace Osio\MagentoAutoPatch\Model;
 
 use Symfony\Component\Process\Process;
 
-class Magento extends AbstractProcess
+abstract class AbstractProcess
 {
-
     /**
-     * Run setup upgrade
+     * Run a Magento command
      *
+     * @param string $command
      * @return Process
      */
-    public function runSetupUpgrade(): Process
+    public function runCommand(string $command): Process
     {
-        return $this->runCommand("bin/magento setup:upgrade");
-    }
+        $process = new Process(explode(' ', $command));
+        $process->run();
 
-    /**
-     * Run Cache Clear
-     *
-     * @return Process
-     */
-    public function runCacheClear(): Process
-    {
-        return $this->runCommand("bin/magento cache:flush");
+        return $process;
     }
 }

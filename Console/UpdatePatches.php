@@ -97,7 +97,7 @@ class UpdatePatches extends Command
      */
     private function runner(InputInterface $input, OutputInterface $output): void
     {
-        $output->writeln('Checking for new patches...');
+        $output->writeln('<comment>Checking for new patches...</comment>');
         $output->writeln("Current Magento Version: {$this->composer->getVersion()}");
         $this->displayLatestVersion($input, $output);
     }
@@ -113,11 +113,11 @@ class UpdatePatches extends Command
     private function displayLatestVersion(InputInterface $input, OutputInterface $output): void
     {
         if ($this->composer->getLatest()) {
-            $output->writeln("Latest Minor Patch Version: {$this->composer->getLatest()}");
+            $output->writeln("<comment>Latest Minor Patch Version: {$this->composer->getLatest()}</comment>");
             $output->writeln("Update available!");
             $output->writeln($this->getAnswerUpdate($input, $output));
         } else {
-            $output->writeln("Latest Minor Patch Version: {$this->composer->getVersion()}");
+            $output->writeln("<comment>Latest Minor Patch Version: {$this->composer->getVersion()}</comment>");
             $output->writeln("Magento is already up to date!");
         }
     }
@@ -179,7 +179,6 @@ class UpdatePatches extends Command
 
         return $message;
     }
-
 
     /**
      * Get Question Helper class

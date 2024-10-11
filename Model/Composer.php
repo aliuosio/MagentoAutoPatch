@@ -16,7 +16,7 @@ use Magento\Framework\Filesystem\Driver\File;
 use Magento\Framework\Serialize\Serializer\Json;
 use Symfony\Component\Process\Process;
 
-class Composer
+class Composer extends AbstractProcess
 {
 
     /**
@@ -71,10 +71,7 @@ class Composer
      */
     public function hasVersions(): Process
     {
-        $process = new Process(['composer', 'show', '--outdated', $this->whichMagento(), '--all']);
-        $process->run();
-
-        return $process;
+        return $this->runCommand("composer show --outdated {$this->whichMagento()} --all");
     }
 
     /**
@@ -123,11 +120,8 @@ class Composer
      */
     public function downloadLatestVersion(): bool
     {
-        $command = "composer require {$this->whichMagento()}:{$this->getLatest()} -W";
-        $updateProcess = new Process(explode(' ', $command));
-        $updateProcess->run();
-
-        return $updateProcess->isSuccessful();
+        return $this->runCommand("composer require {$this->whichMagento()}:{$this->getLatest()} -W")
+            ->isSuccessful();
     }
 
     /**
@@ -176,6 +170,7 @@ class Composer
     private function fetchOutdatedVersions(): array
     {
         preg_match_all('/\d+\.\d+\.\d+-p\d+/m', $this->hasVersions()->getOutput(), $matches);
+
         return $matches[0] ?? [];
     }
 
