@@ -17,6 +17,9 @@ The **Patch AutoUpdater** module for Magento 2 automates the process of checking
     composer require aliuosio/magento-autopatcher
     bin/magento setup:upgrade
 
+### Enable the Module
+    stores -> configuration -> Osio -> Auto Patcher -> enable
+
 ### Patch the System (automatic per cron or manually)
     # cron
     crontab -e as root
@@ -26,8 +29,11 @@ The **Patch AutoUpdater** module for Magento 2 automates the process of checking
     bin/magento patch:update
 
 ### Todos
-* Add command implementation: Feedback loop for processes
+* chamge composer version in composer.json after update
+* add command implementation: Feedback loop for processes
+* add tested on magento versions to README
 * refactor process class usage
+* add deploy modes handling
 * Add backend Dialog and command implementation: Enable switch
 * Add backend Dialog and command implementation: notification per mail of available patch
 * Add backend Dialog and command implementation: Patch automatically or not (comment cron has to bee set up to use)
