@@ -22,7 +22,7 @@ class UpdatePatches extends Command
 {
 
     /**
-     * @var PatchUpdater  
+     * @var PatchUpdater
      */
     protected PatchUpdater $patchUpdater;
 
@@ -79,21 +79,32 @@ class UpdatePatches extends Command
         if ($this->patchUpdater->getLatest()) {
             $output->writeln("<info>Latest Minor Patch Version: {$this->patchUpdater->getLatest()}</info>");
             $output->writeln("<info>Update available!</info>");
-
-            // Ask the user if they want to update
-            $helper = $this->getHelper('question');
-            $question = new ConfirmationQuestion('Do you want to update Magento? (Y/n) ', true);
-
-            if ($helper->ask($input, $output, $question)) {
-                $output->writeln('Updating Magento...');
-                // Add your update logic here
-                // $this->patchUpdater->applyUpdate(); // Example update call
-            } else {
-                $output->writeln('Update canceled by the user.');
-            }
-
+            $output->writeln($this->getAnswerUpdate($input, $output));
         } else {
             $output->writeln("<info>Magento is already up to date!</info>");
         }
+    }
+
+    /**
+     * Get Answer Update
+     *
+     * @param  InputInterface  $input
+     * @param  OutputInterface $output
+     * @return string
+     */
+    public function getAnswerUpdate(InputInterface $input, OutputInterface $output): string
+    {
+        return ($this->getHelper('question')->ask($input, $output, $this->getQuestionUpdate())) ?
+            'Updating Magento...' : 'Update canceled by the user.';
+    }
+
+    /**
+     * Get Question Update
+     *
+     * @return ConfirmationQuestion
+     */
+    private function getQuestionUpdate(): ConfirmationQuestion
+    {
+        return new ConfirmationQuestion('Do you want to update Magento? (Y/n) ', true);
     }
 }

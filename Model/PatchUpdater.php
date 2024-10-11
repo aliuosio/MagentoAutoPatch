@@ -162,7 +162,7 @@ class PatchUpdater
         return array_filter(
             $availableVersions,
             function ($version) use ($baseVersion) {
-                return preg_match("/^{$baseVersion}-p\d+$/", $version); // Match the base version with patch
+                return preg_match("/^$baseVersion-p\d+$/", $version); // Match the base version with patch
             }
         );
     }
@@ -190,7 +190,6 @@ class PatchUpdater
     {
         return version_compare($currentVersion, $latestPatch, '<');
     }
-
 
     /**
      * Get Composer Path
