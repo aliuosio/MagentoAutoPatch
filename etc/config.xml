@@ -6,6 +6,11 @@
             <general>
                 <enabled>0</enabled>
             </general>
+            <settings>
+                <notify_before>0</notify_before>
+                <automatic>0</automatic>
+                <notify_after>0</notify_after>
+            </settings>
         </patcher>
     </default>
 </config>
