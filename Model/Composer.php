@@ -157,40 +157,6 @@ class Composer
     }
 
     /**
-     * Update the Magento version in composer.json
-     *
-     * @return bool
-     * @throws FileSystemException
-     */
-    public function updateVersion(): bool
-    {
-        // Fetch the current composer.json data
-        if ($this->file->isExists($this->getComposerPath())) {
-            $this->composerJson = $this->json->unserialize(
-                $this->file->fileGetContents($this->getComposerPath())
-            );
-        } else {
-            throw new FileSystemException(__('composer.json not found.'));
-        }
-
-        // Find the Magento package and update its version
-        $magentoPackage = $this->whichMagento();
-        if ($magentoPackage !== null) {
-            $this->composerJson['require'][$magentoPackage] = $this->getVersion();
-
-            // Serialize the modified composer.json back to a string
-            $updatedComposerJson = $this->json->serialize($this->composerJson);
-
-            // Save the updated composer.json
-            $this->file->filePutContents($this->getComposerPath(), $updatedComposerJson);
-
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
      *  Extracts the base version (major.minor.patch) from the current version.
      *
      * @param  string $currentVersion

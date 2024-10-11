@@ -147,7 +147,6 @@ class UpdatePatches extends Command
 
         if ($result) {
             if ($this->composer->downloadLatestVersion()
-              // && $this->composer->updateVersion()
                 && $this->magento->runSetupUpgrade()
                 && $this->magento->runCacheClear()
             ) {
