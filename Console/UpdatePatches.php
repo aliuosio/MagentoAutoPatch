@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 /**
- * @author     Osiozekhai Aliu
- * @package    Osio_MagentoAutoPatch
- * @copyright  Copyright (c) 2024 Osio
+ * @author    Osiozekhai Aliu
+ * @package   Osio_MagentoAutoPatch
+ * @copyright Copyright (c) 2024 Osio
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -21,7 +21,9 @@ use Symfony\Component\Console\Command\Command;
 class UpdatePatches extends Command
 {
 
-    /** @var PatchUpdater  */
+    /**
+     * @var PatchUpdater  
+     */
     protected PatchUpdater $patchUpdater;
 
     /**
@@ -50,8 +52,8 @@ class UpdatePatches extends Command
     /**
      * Execute
      *
-     * @param InputInterface $input
-     * @param OutputInterface $output
+     * @param  InputInterface  $input
+     * @param  OutputInterface $output
      * @return int
      * @throws FileSystemException
      */
@@ -67,8 +69,8 @@ class UpdatePatches extends Command
     /**
      * Display latest Version
      *
-     * @param InputInterface $input
-     * @param OutputInterface $output
+     * @param  InputInterface  $input
+     * @param  OutputInterface $output
      * @return void
      * @throws FileSystemException
      */
