@@ -11,6 +11,7 @@
 namespace Osio\MagentoAutoPatch\Console;
 
 use Magento\Framework\Exception\FileSystemException;
+use Osio\MagentoAutoPatch\Helper\Data;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
@@ -28,13 +29,22 @@ class UpdatePatches extends Command
     protected PatchUpdater $patchUpdater;
 
     /**
+     * @var Data
+     */
+    private Data $helper;
+
+    /**
      * @param PatchUpdater $patchUpdater
+     * @param Data         $helper
      */
     public function __construct(
-        PatchUpdater $patchUpdater
+        PatchUpdater $patchUpdater,
+        Data $helper
     ) {
-        $this->patchUpdater = $patchUpdater;
         parent::__construct();
+
+        $this->patchUpdater = $patchUpdater;
+        $this->helper = $helper;
     }
 
     /**
@@ -53,25 +63,40 @@ class UpdatePatches extends Command
     /**
      * Execute
      *
-     * @param InputInterface $input
-     * @param OutputInterface $output
+     * @param  InputInterface  $input
+     * @param  OutputInterface $output
      * @return int
      * @throws FileSystemException
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $output->writeln('Checking for new patches...');
-        $output->writeln("<info>Current Magento Version: {$this->patchUpdater->getVersion()}</info>");
-        $this->displayLatestVersion($input, $output);
+        if ($this->helper->isEnabled()) {
+            $this->runner($input, $output);
+        }
 
         return Cli::RETURN_SUCCESS;
     }
 
     /**
+     * Command wrapper
+     *
+     * @param  InputInterface  $input
+     * @param  OutputInterface $output
+     * @return void
+     * @throws FileSystemException
+     */
+    private function runner(InputInterface $input, OutputInterface $output): void
+    {
+        $output->writeln('Checking for new patches...');
+        $output->writeln("<info>Current Magento Version: {$this->patchUpdater->getVersion()}</info>");
+        $this->displayLatestVersion($input, $output);
+    }
+
+    /**
      * Display latest Version
      *
-     * @param InputInterface $input
-     * @param OutputInterface $output
+     * @param  InputInterface  $input
+     * @param  OutputInterface $output
      * @return void
      * @throws FileSystemException
      */
@@ -99,8 +124,8 @@ class UpdatePatches extends Command
     /**
      * Get Answer Update
      *
-     * @param InputInterface $input
-     * @param OutputInterface $output
+     * @param  InputInterface  $input
+     * @param  OutputInterface $output
      * @return string
      */
     private function getAnswerUpdate(InputInterface $input, OutputInterface $output): string
