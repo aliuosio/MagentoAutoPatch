@@ -17,6 +17,7 @@ use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Magento\Framework\Console\Cli;
 use Osio\MagentoAutoPatch\Model\PatchUpdater;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\QuestionHelper;
 
 class UpdatePatches extends Command
 {
@@ -52,8 +53,8 @@ class UpdatePatches extends Command
     /**
      * Execute
      *
-     * @param  InputInterface  $input
-     * @param  OutputInterface $output
+     * @param InputInterface $input
+     * @param OutputInterface $output
      * @return int
      * @throws FileSystemException
      */
@@ -69,8 +70,8 @@ class UpdatePatches extends Command
     /**
      * Display latest Version
      *
-     * @param  InputInterface  $input
-     * @param  OutputInterface $output
+     * @param InputInterface $input
+     * @param OutputInterface $output
      * @return void
      * @throws FileSystemException
      */
@@ -86,19 +87,6 @@ class UpdatePatches extends Command
     }
 
     /**
-     * Get Answer Update
-     *
-     * @param  InputInterface  $input
-     * @param  OutputInterface $output
-     * @return string
-     */
-    public function getAnswerUpdate(InputInterface $input, OutputInterface $output): string
-    {
-        return ($this->getHelper('question')->ask($input, $output, $this->getQuestionUpdate())) ?
-            'Updating Magento...' : 'Update canceled by the user.';
-    }
-
-    /**
      * Get Question Update
      *
      * @return ConfirmationQuestion
@@ -106,5 +94,28 @@ class UpdatePatches extends Command
     private function getQuestionUpdate(): ConfirmationQuestion
     {
         return new ConfirmationQuestion('Do you want to update Magento? (Y/n) ', true);
+    }
+
+    /**
+     * Get Answer Update
+     *
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return string
+     */
+    private function getAnswerUpdate(InputInterface $input, OutputInterface $output): string
+    {
+        return ($this->getQuestionHelper()->ask($input, $output, $this->getQuestionUpdate())) ?
+            'Updating Magento...' : 'Update canceled by the user.';
+    }
+
+    /**
+     * Get Question Helper class
+     *
+     * @return QuestionHelper
+     */
+    protected function getQuestionHelper(): QuestionHelper
+    {
+        return $this->getHelper('question');
     }
 }
