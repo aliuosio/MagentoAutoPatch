@@ -39,7 +39,7 @@ class UpdatePatches extends Command
      */
     public function __construct(
         PatchUpdater $patchUpdater,
-        Data $helper
+        Data         $helper
     ) {
         parent::__construct();
 
@@ -108,6 +108,7 @@ class UpdatePatches extends Command
             $output->writeln("<info>Update available!</info>");
             $output->writeln($this->getAnswerUpdate($input, $output));
         } else {
+            $output->writeln("<info>Latest Minor Patch Version: {$this->patchUpdater->getVersion()}</info>");
             $output->writeln("<info>Magento is already up to date!</info>");
         }
     }
@@ -131,8 +132,18 @@ class UpdatePatches extends Command
      */
     private function getAnswerUpdate(InputInterface $input, OutputInterface $output): string
     {
-        return ($this->getQuestionHelper()->ask($input, $output, $this->getQuestionUpdate())) ?
-            'Updating Magento...' : 'Update canceled by the user.';
+        $message = '';
+        $result = $this->getQuestionHelper()->ask($input, $output, $this->getQuestionUpdate());
+
+        if ($result) {
+            if ($this->patchUpdater->downloadLatestVersion()) {
+                $message = 'Updated Magento...';
+            } else {
+                $message = 'Error while Updating Magento';
+            }
+        }
+
+        return $message;
     }
 
     /**

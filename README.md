@@ -26,6 +26,8 @@ The **Patch AutoUpdater** module for Magento 2 automates the process of checking
     bin/magento patch:update
 
 ### Todos
-* Backend Dialog and command implementaion: Enable switch
-* Backend Dialog and command implementaion: notification per mail of available patch
-* Backend Dialog and command implementaion: Patch automatically or not (comment cron has to bee set up to use)
+* Add command implementation: Feedback loop for processes
+* Add backend Dialog and command implementation: Enable switch
+* Add backend Dialog and command implementation: notification per mail of available patch
+* Add backend Dialog and command implementation: Patch automatically or not (comment cron has to bee set up to use)
+* Add ACL
