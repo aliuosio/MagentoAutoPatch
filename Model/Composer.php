@@ -123,8 +123,8 @@ class Composer
      */
     public function downloadLatestVersion(): bool
     {
-        $composerCommand = "composer require {$this->whichMagento()}:{$this->getLatest()} -W";
-        $updateProcess = new Process(explode(' ', $composerCommand));
+        $command = "composer require {$this->whichMagento()}:{$this->getLatest()} -W";
+        $updateProcess = new Process(explode(' ', $command));
         $updateProcess->run();
 
         return $updateProcess->isSuccessful();
@@ -159,7 +159,7 @@ class Composer
     /**
      *  Extracts the base version (major.minor.patch) from the current version.
      *
-     * @param string $currentVersion
+     * @param  string $currentVersion
      * @return string
      */
     private function extractBaseVersion(string $currentVersion): string

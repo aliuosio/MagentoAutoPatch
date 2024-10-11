@@ -16,7 +16,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Magento\Framework\Console\Cli;
-use Osio\MagentoAutoPatch\Model\PatchUpdater;
+use Osio\MagentoAutoPatch\Model\Composer;
+use Osio\MagentoAutoPatch\Model\Magento;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
 
@@ -24,27 +25,35 @@ class UpdatePatches extends Command
 {
 
     /**
-     * @var PatchUpdater
-     */
-    protected PatchUpdater $patchUpdater;
-
-    /**
      * @var Data
      */
     private Data $helper;
 
     /**
-     * @param PatchUpdater $patchUpdater
-     * @param Data         $helper
+     * @var Composer
+     */
+    private Composer $composer;
+
+    /**
+     * @var Magento
+     */
+    private Magento $magento;
+
+    /**
+     * @param Composer $composer
+     * @param Magento  $magento
+     * @param Data     $helper
      */
     public function __construct(
-        PatchUpdater $patchUpdater,
+        Composer $composer,
+        Magento $magento,
         Data         $helper
     ) {
         parent::__construct();
 
-        $this->patchUpdater = $patchUpdater;
         $this->helper = $helper;
+        $this->composer = $composer;
+        $this->magento = $magento;
     }
 
     /**
@@ -89,7 +98,7 @@ class UpdatePatches extends Command
     private function runner(InputInterface $input, OutputInterface $output): void
     {
         $output->writeln('Checking for new patches...');
-        $output->writeln("<info>Current Magento Version: {$this->patchUpdater->getVersion()}</info>");
+        $output->writeln("<info>Current Magento Version: {$this->composer->getVersion()}</info>");
         $this->displayLatestVersion($input, $output);
     }
 
@@ -103,12 +112,12 @@ class UpdatePatches extends Command
      */
     private function displayLatestVersion(InputInterface $input, OutputInterface $output): void
     {
-        if ($this->patchUpdater->getLatest()) {
-            $output->writeln("<info>Latest Minor Patch Version: {$this->patchUpdater->getLatest()}</info>");
+        if ($this->composer->getLatest()) {
+            $output->writeln("<info>Latest Minor Patch Version: {$this->composer->getLatest()}</info>");
             $output->writeln("<info>Update available!</info>");
             $output->writeln($this->getAnswerUpdate($input, $output));
         } else {
-            $output->writeln("<info>Latest Minor Patch Version: {$this->patchUpdater->getVersion()}</info>");
+            $output->writeln("<info>Latest Minor Patch Version: {$this->composer->getVersion()}</info>");
             $output->writeln("<info>Magento is already up to date!</info>");
         }
     }
@@ -129,6 +138,7 @@ class UpdatePatches extends Command
      * @param  InputInterface  $input
      * @param  OutputInterface $output
      * @return string
+     * @throws FileSystemException
      */
     private function getAnswerUpdate(InputInterface $input, OutputInterface $output): string
     {
@@ -136,7 +146,7 @@ class UpdatePatches extends Command
         $result = $this->getQuestionHelper()->ask($input, $output, $this->getQuestionUpdate());
 
         if ($result) {
-            if ($this->patchUpdater->downloadLatestVersion()) {
+            if ($this->composer->downloadLatestVersion() && $this->magento->runSetupUpgrade() && $this->magento->runCacheClear()) {
                 $message = 'Updated Magento...';
             } else {
                 $message = 'Error while Updating Magento';
