@@ -18,7 +18,6 @@ use Symfony\Component\Process\Process;
 
 class PatchUpdater
 {
-
     /** @var File */
     private File $file;
 
@@ -38,8 +37,8 @@ class PatchUpdater
      */
     public function __construct(
         DirectoryList $directoryList,
-        Json          $json,
-        File          $file
+        Json $json,
+        File $file
     ) {
         $this->directoryList = $directoryList;
         $this->json = $json;
@@ -62,9 +61,9 @@ class PatchUpdater
     }
 
     /**
-     * Check if cloud or communinty Magento version
+     * Check if cloud or community Magento version
      *
-     * @return string
+     * @return string|null
      */
     public function whichMagento(): ?string
     {
@@ -96,37 +95,45 @@ class PatchUpdater
     }
 
     /**
-     * Get latest Patch
+     * Get the latest patch version within the same minor version.
      *
      * @return string|null
      * @throws FileSystemException
      */
     public function getLatest(): ?string
     {
+        // Get the current version and extract the major.minor.patch part
+        $currentVersion = $this->getVersion(); // e.g., '2.4.6-p1'
+        $versionParts = explode('-', $currentVersion); // Split version and patch
+        $baseVersion = $versionParts[0]; // '2.4.6'
+
+        // Fetch all outdated versions from composer show output
         preg_match_all('/\d+\.\d+\.\d+-p\d+/m', $this->hasVersions()->getOutput(), $matches);
 
         if (empty($matches[0])) {
-            return null;
+            return null; // No available patch versions
         }
 
-        return $this->compareVersions($matches);
-    }
+        // Filter versions that match the current major.minor version
+        $filteredMatches = array_filter(
+            $matches[0],
+            function ($version) use ($baseVersion) {
+                return preg_match("/^{$baseVersion}-p\d+$/", $version); // Match the exact base version
+            }
+        );
 
-    /**
-     * Compare Versions
-     *
-     * @param array $matches
-     * @return string|null
-     * @throws FileSystemException
-     */
-    private function compareVersions(array $matches): ?string
-    {
-        $latestPatch = max($matches[0]);
-        if (version_compare($this->getVersion(), $latestPatch, '>=')) {
-            return null;
+        if (empty($filteredMatches)) {
+            return null; // No valid patch versions found for the current version
         }
 
-        return $latestPatch;
+        // Sort filtered versions to get the latest patch version
+        usort($filteredMatches, 'version_compare');
+
+        // Get the highest patch version
+        $latestPatch = end($filteredMatches); // Get the highest patch version
+
+        // Return the latest patch version if it's newer than the current version
+        return version_compare($currentVersion, $latestPatch, '<') ? $latestPatch : null;
     }
 
     /**
@@ -138,5 +145,4 @@ class PatchUpdater
     {
         return "{$this->directoryList->getRoot()}/composer.json";
     }
-
 }

@@ -75,7 +75,7 @@ class UpdatePatches extends Command
     private function displayLatestVersion(InputInterface $input, OutputInterface $output): void
     {
         if ($this->patchUpdater->getLatest()) {
-            $output->writeln("<info>Latest Magento Version: {$this->patchUpdater->getLatest()}</info>");
+            $output->writeln("<info>Latest Minor Patch Version: {$this->patchUpdater->getLatest()}</info>");
             $output->writeln("<info>Update available!</info>");
 
             // Ask the user if they want to update
