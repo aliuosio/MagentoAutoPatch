@@ -146,7 +146,11 @@ class UpdatePatches extends Command
         $result = $this->getQuestionHelper()->ask($input, $output, $this->getQuestionUpdate());
 
         if ($result) {
-            if ($this->composer->downloadLatestVersion() && $this->magento->runSetupUpgrade() && $this->magento->runCacheClear()) {
+            if ($this->composer->downloadLatestVersion()
+              // && $this->composer->updateVersion()
+                && $this->magento->runSetupUpgrade()
+                && $this->magento->runCacheClear()
+            ) {
                 $message = 'Updated Magento...';
             } else {
                 $message = 'Error while Updating Magento';
