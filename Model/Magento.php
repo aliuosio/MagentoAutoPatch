@@ -34,4 +34,17 @@ class Magento extends AbstractProcess
     {
         return $this->runCommand("bin/magento cache:flush");
     }
+
+    public function getDeployMode(): string
+    {
+        return $this->runCommand("bin/magento deploy:mode:show")->getOutput();
+    }
+
+    /**
+     * @return Process
+     */
+    public function setDeployModeProduction(): Process
+    {
+        return $this->runCommand("bin/magento deploy:mode:set production");
+    }
 }

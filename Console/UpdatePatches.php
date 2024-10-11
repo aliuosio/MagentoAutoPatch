@@ -61,7 +61,7 @@ class UpdatePatches extends Command
      *
      * @return void
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('patch:update');
         $this->setDescription('Checks and applies Magento patches automatically');
@@ -146,7 +146,6 @@ class UpdatePatches extends Command
         $result = $this->getQuestionHelper()->ask($input, $output, $this->getQuestionUpdate());
 
         if ($result) {
-
             // Step 1: Download latest version
             $output->writeln('<comment>Downloading latest version...</comment>');
             if ($this->composer->downloadLatestVersion()) {
@@ -172,6 +171,12 @@ class UpdatePatches extends Command
             } else {
                 $output->writeln('<error>Error clearing cache.</error>');
                 return 'Error while updating Magento';
+            }
+
+            // Step 3:Check Deploy Mode and compile production mode
+            if (stristr($this->magento->getDeployMode(), 'production')) {
+                $output->writeln('<comment>Setting Production Mode as before... this can take some time</comment>');
+                $this->magento->setDeployModeProduction();
             }
 
             $message = '<comment>Magento updated successfully!</comment>';

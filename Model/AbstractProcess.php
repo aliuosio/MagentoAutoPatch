@@ -17,7 +17,7 @@ abstract class AbstractProcess
     /**
      * Run a Magento command
      *
-     * @param string $command
+     * @param  string $command
      * @return Process
      */
     public function runCommand(string $command): Process
