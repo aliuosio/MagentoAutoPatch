@@ -13,10 +13,10 @@ namespace Osio\MagentoAutoPatch\Console;
 use Magento\Framework\Exception\FileSystemException;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Magento\Framework\Console\Cli;
 use Osio\MagentoAutoPatch\Model\PatchUpdater;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Process\Process;
 
 class UpdatePatches extends Command
 {
@@ -59,7 +59,7 @@ class UpdatePatches extends Command
     {
         $output->writeln('Checking for new patches...');
         $output->writeln("<info>Current Magento Version: {$this->patchUpdater->getVersion()}</info>");
-        $this->displayLatestVersion($output);
+        $this->displayLatestVersion($input, $output);
 
         return Cli::RETURN_SUCCESS;
     }
@@ -67,19 +67,31 @@ class UpdatePatches extends Command
     /**
      * Display latest Version
      *
+     * @param InputInterface $input
      * @param OutputInterface $output
      * @return void
      * @throws FileSystemException
      */
-    private function displayLatestVersion(OutputInterface $output): void
+    private function displayLatestVersion(InputInterface $input, OutputInterface $output): void
     {
         if ($this->patchUpdater->getLatest()) {
             $output->writeln("<info>Latest Magento Version: {$this->patchUpdater->getLatest()}</info>");
-            $output->writeln("<info>update needed</info>");
-            $output->writeln("Updating Magento...");
+            $output->writeln("<info>Update available!</info>");
+
+            // Ask the user if they want to update
+            $helper = $this->getHelper('question');
+            $question = new ConfirmationQuestion('Do you want to update Magento? (Y/n) ', true);
+
+            if ($helper->ask($input, $output, $question)) {
+                $output->writeln('Updating Magento...');
+                // Add your update logic here
+                // $this->patchUpdater->applyUpdate(); // Example update call
+            } else {
+                $output->writeln('Update canceled by the user.');
+            }
+
         } else {
-            $output->writeln("<info>Latest Magento Version: {$this->patchUpdater->getVersion()}</info>");
-            $output->writeln("no update needed");
+            $output->writeln("<info>Magento is already up to date!</info>");
         }
     }
 }
