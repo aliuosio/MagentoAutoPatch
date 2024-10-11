@@ -72,8 +72,9 @@ class UpdatePatches extends Command
     {
         if ($this->helper->isEnabled()) {
             $this->runner($input, $output);
+        } else {
+            $output->writeln('Auto Patcher is not enabled in Backend');
         }
-
         return Cli::RETURN_SUCCESS;
     }
 
