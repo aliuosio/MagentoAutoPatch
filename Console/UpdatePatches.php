@@ -46,8 +46,8 @@ class UpdatePatches extends Command
      */
     public function __construct(
         Composer $composer,
-        Magento $magento,
-        Data         $helper
+        Magento  $magento,
+        Data     $helper
     ) {
         parent::__construct();
 
@@ -98,7 +98,7 @@ class UpdatePatches extends Command
     private function runner(InputInterface $input, OutputInterface $output): void
     {
         $output->writeln('Checking for new patches...');
-        $output->writeln("<info>Current Magento Version: {$this->composer->getVersion()}</info>");
+        $output->writeln("Current Magento Version: {$this->composer->getVersion()}");
         $this->displayLatestVersion($input, $output);
     }
 
@@ -113,12 +113,12 @@ class UpdatePatches extends Command
     private function displayLatestVersion(InputInterface $input, OutputInterface $output): void
     {
         if ($this->composer->getLatest()) {
-            $output->writeln("<info>Latest Minor Patch Version: {$this->composer->getLatest()}</info>");
-            $output->writeln("<info>Update available!</info>");
+            $output->writeln("Latest Minor Patch Version: {$this->composer->getLatest()}");
+            $output->writeln("Update available!");
             $output->writeln($this->getAnswerUpdate($input, $output));
         } else {
-            $output->writeln("<info>Latest Minor Patch Version: {$this->composer->getVersion()}</info>");
-            $output->writeln("<info>Magento is already up to date!</info>");
+            $output->writeln("Latest Minor Patch Version: {$this->composer->getVersion()}");
+            $output->writeln("Magento is already up to date!");
         }
     }
 
@@ -129,7 +129,7 @@ class UpdatePatches extends Command
      */
     private function getQuestionUpdate(): ConfirmationQuestion
     {
-        return new ConfirmationQuestion('Do you want to update Magento? (Y/n) ', true);
+        return new ConfirmationQuestion('<question>Do you want to update Magento? (Y/n)</question>', true);
     }
 
     /**
@@ -146,18 +146,40 @@ class UpdatePatches extends Command
         $result = $this->getQuestionHelper()->ask($input, $output, $this->getQuestionUpdate());
 
         if ($result) {
-            if ($this->composer->downloadLatestVersion()
-                && $this->magento->runSetupUpgrade()
-                && $this->magento->runCacheClear()
-            ) {
-                $message = 'Updated Magento...';
+
+            // Step 1: Download latest version
+            $output->writeln('<comment>Downloading latest version...</comment>');
+            if ($this->composer->downloadLatestVersion()) {
+                $output->writeln('<info>Downloaded latest version successfully.</info>');
             } else {
-                $message = 'Error while Updating Magento';
+                $output->writeln('<error>Error downloading latest version.</error>');
+                return 'Error while updating Magento';
             }
+
+            // Step 2: Run setup upgrade
+            $output->writeln('<comment>Running setup upgrade...</comment>');
+            if ($this->magento->runSetupUpgrade()) {
+                $output->writeln('<info>Setup upgrade completed successfully.</info>');
+            } else {
+                $output->writeln('<error>Error during setup upgrade.</error>');
+                return 'Error while updating Magento';
+            }
+
+            // Step 3: Clear cache
+            $output->writeln('<comment>Clearing cache...</comment>');
+            if ($this->magento->runCacheClear()) {
+                $output->writeln('<info>Cache cleared successfully.</info>');
+            } else {
+                $output->writeln('<error>Error clearing cache.</error>');
+                return 'Error while updating Magento';
+            }
+
+            $message = '<comment>Magento updated successfully!</comment>';
         }
 
         return $message;
     }
+
 
     /**
      * Get Question Helper class

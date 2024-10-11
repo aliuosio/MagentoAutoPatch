@@ -29,9 +29,8 @@ The **Patch AutoUpdater** module for Magento 2 automates the process of checking
     bin/magento patch:update
 
 #### Todos
-* chamge composer version in composer.json after update
+* ~~add command implementation: Feedback loop for processes~~
 * add animtaed GIF to demo tool
-* add command implementation: Feedback loop for processes
 * add tested on magento versions to README
 * refactor process class usage
 * add deploy modes handling
