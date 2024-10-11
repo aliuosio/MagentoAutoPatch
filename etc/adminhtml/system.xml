@@ -2,15 +2,15 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
-        <tab id="osio" translate="label" sortOrder="20">
+        <tab id="osio" translate="label" sortOrder="30">
             <label>Osio</label>
         </tab>
         <section id="patcher" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1"
                  showInStore="1">
             <class>separator-top</class>
-            <label>Biohort Configurator</label>
-            <tab>mediadivision</tab>
-            <resource>MediaDivision_ProductConfigurator::config</resource>
+            <label>Auto Patcher</label>
+            <tab>osio</tab>
+            <resource>Osio_MagentoAutoPatch::config</resource>
             <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
                    showInStore="1">
                 <label>General Configuration</label>
