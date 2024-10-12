@@ -2,10 +2,10 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
-        <tab id="osio" translate="label" sortOrder="30">
+        <tab id="osio" translate="label" sortOrder="100">
             <label>Osio</label>
         </tab>
-        <section id="patcher" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1"
+        <section id="patcher" translate="label" sortOrder="50" showInDefault="1" showInWebsite="1"
                  showInStore="1">
             <class>separator-top</class>
             <label>Auto Patcher</label>
@@ -20,25 +20,27 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
             </group>
-            <group id="Settings" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+            <group id="settings" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
                    showInStore="1">
                 <label>Settings</label>
                 <field id="notify_before" translate="label" type="select" sortOrder="10" showInDefault="1"
                        showInWebsite="1"
                        showInStore="1">
-                    <label>send new patch notification mail</label>
+                    <label>Send new patch notification mail</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
                 <field id="automatic" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1"
                        showInStore="1">
-                    <label>update automatically</label>
+                    <label>Update automatically</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
                 <field id="notify_after" translate="label" type="select" sortOrder="10" showInDefault="1"
-                       showInWebsite="1"
-                       showInStore="1">
+                       showInWebsite="1" showInStore="1">
                     <label>Send notification mail after update</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="patcher/settings/automatic">1</field> <!-- 1 means Yes -->
+                    </depends>
                 </field>
             </group>
         </section>
