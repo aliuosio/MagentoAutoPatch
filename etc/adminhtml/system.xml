@@ -20,8 +20,12 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
             </group>
+            <!--
             <group id="settings" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
                    showInStore="1">
+                <depends>
+                    <field id="patcher/general/enabled">1</field>
+                </depends>
                 <label>Settings</label>
                 <field id="notify_before" translate="label" type="select" sortOrder="10" showInDefault="1"
                        showInWebsite="1"
@@ -39,10 +43,11 @@
                     <label>Send notification mail after update</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
-                        <field id="patcher/settings/automatic">1</field> <!-- 1 means Yes -->
+                        <field id="patcher/settings/automatic">1</field>
                     </depends>
                 </field>
             </group>
+            -->
         </section>
     </system>
 </config>
