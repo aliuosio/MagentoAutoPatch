@@ -3,6 +3,7 @@
     "description": "The Patch AutoUpdater module for Magento 2 automates the process of checking and applying patches. It integrates directly with Magento\u2019s patch management system, reducing the need for manual intervention, ensuring your store remains secure and up-to-date.",
     "type": "magento2-module",
     "license": "MIT",
+    "version": "0.1.0",
     "authors": [
         {
             "name": "Osiozekhai Aliu"
