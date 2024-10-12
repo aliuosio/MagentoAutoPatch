@@ -22,7 +22,7 @@ class Magento extends AbstractProcess
      */
     public function runSetupUpgrade(): Process
     {
-        return $this->runCommand("bin/magento setup:upgrade");
+        return $this->runCommand("bin/magento setup:upgrade --no-interaction");
     }
 
     /**
@@ -32,12 +32,12 @@ class Magento extends AbstractProcess
      */
     public function runCacheClear(): Process
     {
-        return $this->runCommand("bin/magento cache:flush");
+        return $this->runCommand("bin/magento cache:flush --no-interaction");
     }
 
     public function getDeployMode(): string
     {
-        return $this->runCommand("bin/magento deploy:mode:show")->getOutput();
+        return $this->runCommand("bin/magento deploy:mode:show --no-interaction")->getOutput();
     }
 
     /**
@@ -45,6 +45,6 @@ class Magento extends AbstractProcess
      */
     public function setDeployModeProduction(): Process
     {
-        return $this->runCommand("bin/magento deploy:mode:set production");
+        return $this->runCommand("bin/magento deploy:mode:set production --no-interaction");
     }
 }

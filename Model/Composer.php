@@ -71,7 +71,7 @@ class Composer extends AbstractProcess
      */
     public function hasVersions(): Process
     {
-        return $this->runCommand("composer show --outdated {$this->whichMagento()} --all");
+        return $this->runCommand("composer show --outdated {$this->whichMagento()} --all -n");
     }
 
     /**
@@ -120,7 +120,7 @@ class Composer extends AbstractProcess
      */
     public function downloadLatestVersion(): bool
     {
-        return $this->runCommand("composer require {$this->whichMagento()}:{$this->getLatest()} -W")
+        return $this->runCommand("composer require {$this->whichMagento()}:{$this->getLatest()} -n")
             ->isSuccessful();
     }
 
