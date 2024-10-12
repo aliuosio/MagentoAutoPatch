@@ -15,7 +15,7 @@ The **Patch AutoUpdater** module for Magento 2 automates the process of checking
 ## Installation
 
 ### Install the Module
-    composer require aliuosio/magento-autopatcher
+    composer require aliuosio/magento-autopatch
     bin/magento setup:upgrade
 
 ### Enable the Module
