@@ -40,7 +40,7 @@ class ProcessWrapper
      */
     public function runCommand(string $command): Process
     {
-        $process = new Process(explode(' ', $command));
+        $process = $this->getProcess($command);
 
         try {
             $process->run();
@@ -56,5 +56,16 @@ class ProcessWrapper
         }
 
         return $process;
+    }
+
+    /**
+     * Get Process
+     *
+     * @param string $command
+     * @return Process
+     */
+    private function getProcess(string $command): Process
+    {
+        return new Process(explode(' ', $command));
     }
 }
