@@ -11,22 +11,22 @@
 namespace Osio\MagentoAutoPatch\Model;
 
 use Symfony\Component\Process\Process;
-use Psr\Log\LoggerInterface;
+use Osio\MagentoAutoPatch\Model\Logger\CustomLogger;
 use RuntimeException;
 use Throwable;
 
 class ProcessWrapper
 {
     /**
-     * @var LoggerInterface
+     * @var CustomLogger
      */
-    private LoggerInterface $logger;
+    private CustomLogger $logger;
 
     /**
-     * @param LoggerInterface $logger
+     * @param CustomLogger $logger
      */
     public function __construct(
-        LoggerInterface $logger
+        CustomLogger $logger
     ) {
         $this->logger = $logger;
     }

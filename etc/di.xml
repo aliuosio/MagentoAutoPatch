@@ -18,4 +18,17 @@
             </argument>
         </arguments>
     </type>
+    <type name="Osio\MagentoAutoPatch\Model\Logger\CustomLogger">
+        <arguments>
+            <argument name="name" xsi:type="string">custom</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="custom" xsi:type="object">Osio\MagentoAutoPatch\Model\Logger\CustomHandler</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Osio\MagentoAutoPatch\Model\Logger\CustomHandler">
+        <arguments>
+            <argument name="filePath" xsi:type="string">var/log/auto-patch.log</argument>
+        </arguments>
+    </type>
 </config>
