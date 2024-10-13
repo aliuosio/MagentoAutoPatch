@@ -32,9 +32,10 @@ The **Patch AutoUpdater** module for Magento 2 automates the process of checking
 * ~~refactor process class usage~~
 * ~~add deploy modes handling~~
 * ~~add error handling in extra module log~~
-* add seperate log file
+* ~~add seperate log file~~
 * ~~Add backend Dialog and command implementation: Enable switch~~
 * Add backend Dialog and command implementation: notification per mail of available patch
 * Add backend Dialog and command implementation: Patch automatically or not (comment cron has to bee set up to use)
+* Add backend Dialog and command implementation: notification per mail of after auto-patch
 * Add ACL
 * add animtaed GIF to demo tool
