@@ -11,10 +11,26 @@
 namespace Osio\MagentoAutoPatch\Model;
 
 use Symfony\Component\Process\Process;
+use Psr\Log\LoggerInterface;
 use RuntimeException;
+use Throwable;
 
 class ProcessWrapper
 {
+    /**
+     * @var LoggerInterface
+     */
+    private LoggerInterface $logger;
+
+    /**
+     * @param LoggerInterface $logger
+     */
+    public function __construct(
+        LoggerInterface $logger
+    ) {
+        $this->logger = $logger;
+    }
+
     /**
      * Run a command
      *
@@ -29,14 +45,14 @@ class ProcessWrapper
         try {
             $process->run();
             if (!$process->isSuccessful()) {
-                throw new RuntimeException('Command failed: ' . $process->getErrorOutput());
+                $message = 'Command failed: ' . $process->getErrorOutput();
+                $this->logger->error($message);
+                throw new RuntimeException($message);
             }
-        } catch (\Throwable $e) {
-            throw new RuntimeException(
-                'Command execution error: ' . $process->getErrorOutput() . ' | Exception: ' . $e->getMessage(),
-                $e->getCode(),
-                $e
-            );
+        } catch (Throwable $e) {
+            $message = 'Command execution error: ' . $process->getErrorOutput() . ' | Exception: ' . $e->getMessage();
+            $this->logger->error($message);
+            throw new RuntimeException($message, $e->getCode(), $e);
         }
 
         return $process;
