@@ -61,7 +61,7 @@ class ProcessWrapper
     /**
      * Get Process
      *
-     * @param string $command
+     * @param  string $command
      * @return Process
      */
     private function getProcess(string $command): Process
