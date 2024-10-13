@@ -1,4 +1,4 @@
-# Magento 2 Patch AutoUpdater
+# Magento 2 Patch AutoUpdater (WORK IN PROGRESS)
 
 ## Overview
 
