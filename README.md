@@ -7,12 +7,11 @@ The **Patch AutoUpdater** module for Magento 2 automates the process of checking
 > PHP versions: PJP 7.4 - PHP 8.3
 
 ## Features
-
 - **Automated Patch Lookup**: Automatically checks for the latest Magento patches.
 - **Notifies you** before and after the update
 - **Patch Application**: Applies patches directly via CLI or automated cron jobs.
 - **Custom CLI Command**: Use `bin/magento patch:update` to manually check and apply patches.
-- **Cron Job Support**: Easily set up cron jobs to automate patch updates on a regular schedule.
+- **Logging**: log erros to file `auto-patch.log`
 
 ## Installation
 
