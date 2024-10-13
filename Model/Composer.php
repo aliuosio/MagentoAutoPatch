@@ -128,7 +128,7 @@ class Composer
      */
     public function downloadLatestVersion(): bool
     {
-        return $this->processWrapper->runCommand("composer require {$this->whichMagento()}:{$this->getLatest()} -n")
+        return $this->processWrapper->runCommand("composer require {$this->whichMagento()}:{$this->getLatest()} -n -W")
             ->isSuccessful();
     }
 
