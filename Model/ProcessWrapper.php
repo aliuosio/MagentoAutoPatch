@@ -12,7 +12,7 @@ namespace Osio\MagentoAutoPatch\Model;
 
 use Symfony\Component\Process\Process;
 
-abstract class AbstractProcess
+class ProcessWrapper
 {
     /**
      * Run a Magento command

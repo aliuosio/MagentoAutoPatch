@@ -16,7 +16,7 @@ use Magento\Framework\Filesystem\Driver\File;
 use Magento\Framework\Serialize\Serializer\Json;
 use Symfony\Component\Process\Process;
 
-class Composer extends AbstractProcess
+class Composer
 {
 
     /**
@@ -40,11 +40,18 @@ class Composer extends AbstractProcess
     private File $file;
 
     /**
-     * @param DirectoryList $directoryList
-     * @param Json          $json
-     * @param File          $file
+     * @var ProcessWrapper
+     */
+    private ProcessWrapper $processWrapper;
+
+    /**
+     * @param ProcessWrapper $processWrapper
+     * @param DirectoryList  $directoryList
+     * @param Json           $json
+     * @param File           $file
      */
     public function __construct(
+        ProcessWrapper $processWrapper,
         DirectoryList $directoryList,
         Json          $json,
         File          $file
@@ -52,6 +59,7 @@ class Composer extends AbstractProcess
         $this->directoryList = $directoryList;
         $this->json = $json;
         $this->file = $file;
+        $this->processWrapper = $processWrapper;
     }
 
     /**
@@ -71,7 +79,7 @@ class Composer extends AbstractProcess
      */
     public function hasVersions(): Process
     {
-        return $this->runCommand("composer show --outdated {$this->whichMagento()} --all -n");
+        return $this->processWrapper->runCommand("composer show --outdated {$this->whichMagento()} --all -n");
     }
 
     /**
@@ -120,7 +128,7 @@ class Composer extends AbstractProcess
      */
     public function downloadLatestVersion(): bool
     {
-        return $this->runCommand("composer require {$this->whichMagento()}:{$this->getLatest()} -n")
+        return $this->processWrapper->runCommand("composer require {$this->whichMagento()}:{$this->getLatest()} -n")
             ->isSuccessful();
     }
 

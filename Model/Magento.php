@@ -12,8 +12,22 @@ namespace Osio\MagentoAutoPatch\Model;
 
 use Symfony\Component\Process\Process;
 
-class Magento extends AbstractProcess
+class Magento
 {
+
+    /**
+     * @var ProcessWrapper
+     */
+    private ProcessWrapper $processWrapper;
+
+    /**
+     * @param ProcessWrapper $processWrapper
+     */
+    public function __construct(
+        ProcessWrapper $processWrapper
+    ) {
+        $this->processWrapper = $processWrapper;
+    }
 
     /**
      * Run setup upgrade
@@ -22,7 +36,7 @@ class Magento extends AbstractProcess
      */
     public function runSetupUpgrade(): Process
     {
-        return $this->runCommand("bin/magento setup:upgrade --no-interaction");
+        return $this->processWrapper->runCommand("bin/magento setup:upgrade --no-interaction");
     }
 
     /**
@@ -32,19 +46,26 @@ class Magento extends AbstractProcess
      */
     public function runCacheClear(): Process
     {
-        return $this->runCommand("bin/magento cache:flush --no-interaction");
-    }
-
-    public function getDeployMode(): string
-    {
-        return $this->runCommand("bin/magento deploy:mode:show --no-interaction")->getOutput();
+        return $this->processWrapper->runCommand("bin/magento cache:flush --no-interaction");
     }
 
     /**
+     * Get Deploy Mode
+     *
+     * @return string
+     */
+    public function getDeployMode(): string
+    {
+        return $this->processWrapper->runCommand("bin/magento deploy:mode:show --no-interaction")->getOutput();
+    }
+
+    /**
+     * Set Deploy Mode Production
+     *
      * @return Process
      */
     public function setDeployModeProduction(): Process
     {
-        return $this->runCommand("bin/magento deploy:mode:set production --no-interaction");
+        return $this->processWrapper->runCommand("bin/magento deploy:mode:set production --no-interaction");
     }
 }
