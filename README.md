@@ -24,21 +24,16 @@ The **Patch AutoUpdater** module for Magento 2 automates the process of checking
     stores -> configuration -> Osio -> Auto Patcher -> enable
 
 ### Patch the System (automatic per cron or manually)
-    # cron
-    crontab -e as root
-    * * * * * /path/to/magento/bin/magento patch:update
-
     # manually
     bin/magento patch:update
-
-
 
 #### Todos
 * ~~add command implementation: Feedback loop for processes~~
 * ~~add tested on magento versions to README~~
 * ~~refactor process class usage~~
 * ~~add deploy modes handling~~
-* add error handling in extra module log
+* ~~add error handling in extra module log~~
+* add seperate log file
 * ~~Add backend Dialog and command implementation: Enable switch~~
 * Add backend Dialog and command implementation: notification per mail of available patch
 * Add backend Dialog and command implementation: Patch automatically or not (comment cron has to bee set up to use)
