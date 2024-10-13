@@ -17,6 +17,8 @@ class Data extends AbstractHelper
 {
 
     private const ENABLED = 'patcher/general/enabled';
+    private const NOTIFY_BEFORE = 'patcher/settings/notify/before';
+    private const NOTIFY_AFTER = 'patcher/settings/notify/after';
 
     /**
      * Check if module enabled
@@ -26,5 +28,25 @@ class Data extends AbstractHelper
     public function isEnabled(): bool
     {
         return (bool)$this->scopeConfig->getValue(Data::ENABLED);
+    }
+
+    /**
+     * Notify before
+     *
+     * @return bool
+     */
+    public function notifyBefore(): bool
+    {
+        return (bool)$this->scopeConfig->getValue(Data::NOTIFY_BEFORE);
+    }
+
+    /**
+     * Notify after
+     *
+     * @return bool
+     */
+    public function notifyAfter(): bool
+    {
+        return (bool)$this->scopeConfig->getValue(Data::NOTIFY_AFTER);
     }
 }
