@@ -10,9 +10,8 @@
 
 namespace Osio\MagentoAutoPatch\Model\Logger;
 
-use Monolog\Logger;
+use Monolog\Logger as MonologLogger;
 
-class CustomLogger extends Logger
+class Log extends MonologLogger
 {
-
 }
