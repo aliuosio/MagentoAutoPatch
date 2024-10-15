@@ -63,8 +63,8 @@ class UpdatePatches extends Command
      */
     protected function configure(): void
     {
-        $this->setName('patch:update');
-        $this->setDescription('Checks and applies Magento patches automatically');
+        $this->setName("patch:update");
+        $this->setDescription("Checks and applies Magento patches automatically");
 
         parent::configure();
     }
@@ -82,7 +82,7 @@ class UpdatePatches extends Command
         if ($this->helper->isEnabled()) {
             $this->runner($input, $output);
         } else {
-            $output->writeln('Auto Patcher is not enabled in Backend');
+            $output->writeln($this->helper->notEnabled());
             return Cli::RETURN_FAILURE;
         }
         return Cli::RETURN_SUCCESS;
@@ -98,8 +98,8 @@ class UpdatePatches extends Command
      */
     private function runner(InputInterface $input, OutputInterface $output): void
     {
-        $output->writeln('<comment>Checking for new patches...</comment>');
-        $output->writeln("Current Magento Version: {$this->composer->getVersion()}");
+        $output->writeln("{$this->helper->getCheckMessage()}");
+        $output->writeln("{$this->helper->getCurrentVersion($this->composer->getVersion())}");
         $this->displayLatestVersion($input, $output);
     }
 
@@ -114,12 +114,12 @@ class UpdatePatches extends Command
     private function displayLatestVersion(InputInterface $input, OutputInterface $output): void
     {
         if ($this->composer->getLatest()) {
-            $output->writeln("<comment>Latest Minor Patch Version: {$this->composer->getLatest()}</comment>");
-            $output->writeln("Update available!");
+            $output->writeln("{$this->helper->getMinorVersion($this->composer->getLatest())}");
+            $output->writeln($this->helper->updateAvaiable());
             $output->writeln($this->getAnswerUpdate($input, $output));
         } else {
-            $output->writeln("<comment>Latest Minor Patch Version: {$this->composer->getVersion()}</comment>");
-            $output->writeln("Magento is already up to date!");
+            $output->writeln("{$this->helper->getMinorVersion($this->composer->getVersion())}");
+            $output->writeln($this->helper->isUpToDate());
         }
     }
 
@@ -130,7 +130,7 @@ class UpdatePatches extends Command
      */
     private function getQuestionUpdate(): ConfirmationQuestion
     {
-        return new ConfirmationQuestion('<question>Do you want to update Magento? (Y/n)</question>', true);
+        return new ConfirmationQuestion($this->helper->getQuestion(), true);
     }
 
     /**
@@ -139,51 +139,65 @@ class UpdatePatches extends Command
      * @param  InputInterface  $input
      * @param  OutputInterface $output
      * @return string
-     * @throws FileSystemException
      */
     private function getAnswerUpdate(InputInterface $input, OutputInterface $output): string
     {
-        $message = '';
         $result = $this->getQuestionHelper()->ask($input, $output, $this->getQuestionUpdate());
 
-        if ($result) {
-            // Step 1: Download latest version
-            $output->writeln('<comment>Downloading latest version...</comment>');
-            if ($this->composer->downloadLatestVersion()) {
-                $output->writeln('<info>Downloaded latest version successfully.</info>');
-            } else {
-                $output->writeln('<error>Error downloading latest version.</error>');
-                return 'Error while updating Magento';
-            }
-
-            // Step 2: Run setup upgrade
-            $output->writeln('<comment>Running setup upgrade...</comment>');
-            if ($this->magento->runSetupUpgrade()) {
-                $output->writeln('<info>Setup upgrade completed successfully.</info>');
-            } else {
-                $output->writeln('<error>Error during setup upgrade.</error>');
-                return 'Error while updating Magento';
-            }
-
-            // Step 3: Clear cache
-            $output->writeln('<comment>Clearing cache...</comment>');
-            if ($this->magento->runCacheClear()) {
-                $output->writeln('<info>Cache cleared successfully.</info>');
-            } else {
-                $output->writeln('<error>Error clearing cache.</error>');
-                return 'Error while updating Magento';
-            }
-
-            // Step 3:Check Deploy Mode and compile production mode
-            if (stristr($this->magento->getDeployMode(), 'production')) {
-                $output->writeln('<comment>Setting Production Mode as before... this can take some time</comment>');
-                $this->magento->setDeployModeProduction();
-            }
-
-            $message = '<comment>Magento updated successfully!</comment>';
+        if (!$result) {
+            return '';
         }
 
-        return $message;
+        foreach ($this->helper->getMessages() as $method => $messages) {
+            $output->writeln($messages['startMessage']);
+            if (!$this->executeStep($method, $messages['successMessage'], $messages['errorMessage'], $output)) {
+                return $this->helper->getError();
+            }
+        }
+
+        $this->checkAndSetProductionMode($output);
+
+        return $this->helper->getSuccess();
+    }
+
+    /**
+     * Executes a given step and prints appropriate messages.
+     *
+     * @param  string          $method
+     * @param  string          $successMessage
+     * @param  string          $errorMessage
+     * @param  OutputInterface $output
+     * @return bool
+     */
+    private function executeStep(
+        string          $method,
+        string          $successMessage,
+        string          $errorMessage,
+        OutputInterface $output
+    ): bool {
+        if ((method_exists($this->composer, $method) && $this->composer->$method()) ||
+            (method_exists($this->magento, $method) && $this->magento->$method())) {
+            $output->writeln($successMessage);
+            return true;
+        }
+        $output->writeln($errorMessage);
+
+        return false;
+    }
+
+    /**
+     * Checks the current deploy mode and sets it to production if needed.
+     *
+     * @param  OutputInterface $output
+     * @return void
+     */
+    private function checkAndSetProductionMode(OutputInterface $output): void
+    {
+        if (stristr($this->magento->getDeployMode(), 'production')) {
+            $output->writeln($this->helper->getProductionMesssage());
+            $this->magento->setDeployModeProduction();
+            $this->magento->disableMaintenanceMode();
+        }
     }
 
     /**

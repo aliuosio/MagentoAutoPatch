@@ -21,6 +21,37 @@
                 <notify_after>0</notify_after>
                 <automatic>0</automatic>
             </settings>
+            <success><![CDATA[<comment>Magento updated successfully!</comment>]]></success>
+            <error>Error while updating Magento</error>
+            <question><![CDATA[<question>Do you want to update Magento? (Y/n)<question>]]></question>
+            <production_mode_mesg><![CDATA[<comment>Setting Production Mode as before... this can take some time</comment>]]></production_mode_mesg>
+            <process>
+                <messages>
+                    <check><![CDATA[Checking for new patches...]]></check>
+                </messages>
+            </process>
+            <minor_version><![CDATA[<comment>Latest Minor Patch Version: %s</comment>]]></minor_version>
+            <update_avaiable>Update available!</update_avaiable>
+            <current_version>Current Magento Version: %s</current_version>
+            <is_up_to_data>Magento is already up to date!</is_up_to_data>
+            <not_enabled>Auto Patcher is not enabled in Backend</not_enabled>
+            <messages>
+                <downloadLatestVersion>
+                    <startMessage><![CDATA[<comment>Downloading latest version...</comment>]]></startMessage>
+                    <successMessage><![CDATA[<info>Downloaded latest version successfully.</info>]]></successMessage>
+                    <errorMessage><![CDATA[<error>Error downloading latest version.</error>]]></errorMessage>
+                </downloadLatestVersion>
+                <runSetupUpgrade>
+                    <startMessage><![CDATA[<comment>Running setup upgrade...</comment>]]></startMessage>
+                    <successMessage><![CDATA[<info>Setup upgrade completed successfully.</info>]]></successMessage>
+                    <errorMessage><![CDATA[<error>Error during setup upgrade.</error>]]></errorMessage>
+                </runSetupUpgrade>
+                <runCacheClear>
+                    <startMessage><![CDATA[<comment>Clearing cache...</comment>]]></startMessage>
+                    <successMessage><![CDATA[<info>Cache cleared successfully.</info>]]></successMessage>
+                    <errorMessage><![CDATA[<error>Error clearing cache.</error>]]></errorMessage>
+                </runCacheClear>
+            </messages>
         </patcher>
     </default>
 </config>

@@ -68,4 +68,14 @@ class Magento
     {
         return $this->processWrapper->runCommand("bin/magento deploy:mode:set production --no-interaction");
     }
+
+    /**
+     * Disable Maintenance Mode
+     *
+     * @return Process
+     */
+    public function disableMaintenanceMode(): Process
+    {
+        return $this->processWrapper->runCommand("bin/magento maintenance:disable --no-interaction");
+    }
 }
