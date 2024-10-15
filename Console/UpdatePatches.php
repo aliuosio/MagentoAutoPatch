@@ -121,6 +121,7 @@ class UpdatePatches extends Command
             $output->writeln("{$this->helper->getMinorVersion($this->composer->getVersion())}");
             $output->writeln($this->helper->isUpToDate());
         }
+        $output->writeln("");
     }
 
     /**
