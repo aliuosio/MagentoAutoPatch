@@ -16,7 +16,6 @@
     <type name="Magento\Framework\Console\CommandList">
         <arguments>
             <argument name="commands" xsi:type="array">
-                <item name="patch_notify" xsi:type="object">Osio\MagentoAutoPatch\Console\Notify</item>
                 <item name="patch_update" xsi:type="object">Osio\MagentoAutoPatch\Console\UpdatePatches</item>
             </argument>
         </arguments>
