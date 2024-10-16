@@ -100,19 +100,7 @@ class UpdatePatches extends Command
     {
         $output->writeln("{$this->helper->getCheckMessage()}");
         $output->writeln("{$this->helper->getCurrentVersion($this->composer->getVersion())}");
-        $this->displayLatestVersion($input, $output);
-    }
 
-    /**
-     * Display latest Version
-     *
-     * @param  InputInterface  $input
-     * @param  OutputInterface $output
-     * @return void
-     * @throws FileSystemException
-     */
-    private function displayLatestVersion(InputInterface $input, OutputInterface $output): void
-    {
         if ($this->composer->getLatest()) {
             $output->writeln("{$this->helper->getMinorVersion($this->composer->getLatest())}");
             $output->writeln($this->helper->updateAvaiable());
@@ -121,6 +109,7 @@ class UpdatePatches extends Command
             $output->writeln("{$this->helper->getMinorVersion($this->composer->getVersion())}");
             $output->writeln($this->helper->isUpToDate());
         }
+
         $output->writeln("");
     }
 
@@ -149,6 +138,21 @@ class UpdatePatches extends Command
             return '';
         }
 
+        if ($this->processCommands($output) && $this->checkAndSetProductionMode($output)) {
+            return $this->helper->getSuccess();
+        }
+
+        return $this->helper->getError();
+    }
+
+    /**
+     * Process Commands
+     *
+     * @param  OutputInterface $output
+     * @return string|null
+     */
+    private function processCommands(OutputInterface $output): ?string
+    {
         foreach ($this->helper->getMessages() as $method => $messages) {
             $output->writeln($messages['startMessage']);
             if (!$this->executeStep($method, $messages['successMessage'], $messages['errorMessage'], $output)) {
@@ -156,9 +160,7 @@ class UpdatePatches extends Command
             }
         }
 
-        $this->checkAndSetProductionMode($output);
-
-        return $this->helper->getSuccess();
+        return 'All steps executed successfully.';
     }
 
     /**
@@ -176,7 +178,7 @@ class UpdatePatches extends Command
         string          $errorMessage,
         OutputInterface $output
     ): bool {
-        if ((method_exists($this->composer, $method) && $this->composer->$method()) 
+        if ((method_exists($this->composer, $method) && $this->composer->$method())
             || (method_exists($this->magento, $method) && $this->magento->$method())
         ) {
             $output->writeln($successMessage);
@@ -191,15 +193,18 @@ class UpdatePatches extends Command
      * Checks the current deploy mode and sets it to production if needed.
      *
      * @param  OutputInterface $output
-     * @return void
+     * @return bool
      */
-    private function checkAndSetProductionMode(OutputInterface $output): void
+    private function checkAndSetProductionMode(OutputInterface $output): bool
     {
         if (stristr($this->magento->getDeployMode(), 'production')) {
             $output->writeln($this->helper->getProductionMesssage());
-            $this->magento->setDeployModeProduction();
-            $this->magento->disableMaintenanceMode();
+
+            return $this->magento->setDeployModeProduction()->isSuccessful() &&
+                $this->magento->disableMaintenanceMode()->isSuccessful();
         }
+
+        return true;
     }
 
     /**

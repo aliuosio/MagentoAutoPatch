@@ -30,7 +30,7 @@
                     <check><![CDATA[Checking for new patches...]]></check>
                 </messages>
             </process>
-            <minor_version><![CDATA[<comment>Latest Minor Patch Version: %s</comment>]]></minor_version>
+            <minor_version>Latest Minor Patch Version: %s</minor_version>
             <update_avaiable>Update available!</update_avaiable>
             <current_version>Current Magento Version: %s</current_version>
             <is_up_to_data>Magento is already up to date!</is_up_to_data>

@@ -19,6 +19,7 @@ class Data extends AbstractHelper
     private const ENABLED = 'patcher/general/enabled';
     private const NOTIFY_BEFORE = 'patcher/settings/notify/before';
     private const NOTIFY_AFTER = 'patcher/settings/notify/after';
+    private const AUTO = 'patcher/settings/automatic';
     private const MESSAGES = 'patcher/messages';
     private const QUESTION = 'patcher/question';
     private const CHECK_MESG = 'patcher/process/check';
