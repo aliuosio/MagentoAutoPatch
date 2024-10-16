@@ -176,8 +176,9 @@ class UpdatePatches extends Command
         string          $errorMessage,
         OutputInterface $output
     ): bool {
-        if ((method_exists($this->composer, $method) && $this->composer->$method()) ||
-            (method_exists($this->magento, $method) && $this->magento->$method())) {
+        if ((method_exists($this->composer, $method) && $this->composer->$method()) 
+            || (method_exists($this->magento, $method) && $this->magento->$method())
+        ) {
             $output->writeln($successMessage);
             return true;
         }

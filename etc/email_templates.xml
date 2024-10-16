@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/email_templates.xsd">
+    <template
+        area="frontend"
+        file="patch_success.html"
+        id="patch_success"
+        label="Patch Success Notification"
+        module="Osio_MagentoAutoPatch"
+        type="html"
+    />
+</config>

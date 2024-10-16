@@ -17,6 +17,7 @@
         <arguments>
             <argument name="commands" xsi:type="array">
                 <item name="patch_update" xsi:type="object">Osio\MagentoAutoPatch\Console\UpdatePatches</item>
+                <item name="patch:test-email" xsi:type="object">Osio\MagentoAutoPatch\Console\TestEmailCommand</item>
             </argument>
         </arguments>
     </type>
@@ -30,10 +31,9 @@
     <type name="Osio\MagentoAutoPatch\Model\Logger\Log">
         <arguments>
             <argument name="name" xsi:type="string">PatchLog</argument>
-            <argument name="handlers"  xsi:type="array">
+            <argument name="handlers" xsi:type="array">
                 <item name="system" xsi:type="object">Osio\MagentoAutoPatch\Model\Logger\Handler</item>
             </argument>
         </arguments>
     </type>
-
 </config>
