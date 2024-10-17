@@ -205,4 +205,21 @@ class Data extends AbstractHelper
     {
         return (bool)$this->scopeConfig->getValue(Data::AUTO);
     }
+
+    /**
+     * Reset Commands
+     *
+     * @param  string $deployMode
+     * @return array
+     */
+    public function resetCommands(string $deployMode): array
+    {
+        $result = $this->getCommands();
+
+        if (!stristr($deployMode, 'production')) {
+            unset($result['runSetProdcutionMode']);
+        }
+
+        return $result;
+    }
 }

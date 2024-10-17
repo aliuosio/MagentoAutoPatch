@@ -25,8 +25,7 @@ class Magento
      */
     public function __construct(
         ProcessWrapper $processWrapper
-    )
-    {
+    ) {
         $this->processWrapper = $processWrapper;
     }
 

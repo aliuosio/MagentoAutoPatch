@@ -45,11 +45,11 @@ class UpdatePatches
     private Magento $magento;
 
     /**
-     * @param Log $logger
-     * @param Data $helper
-     * @param Email $email
+     * @param Log      $logger
+     * @param Data     $helper
+     * @param Email    $email
      * @param Composer $composer
-     * @param Magento $magento
+     * @param Magento  $magento
      */
     public function __construct(
         Log      $logger,
@@ -95,12 +95,11 @@ class UpdatePatches
             return false;
         }
 
-        foreach ($this->helper->getCommands() as $method => $messages) {
+        foreach ($this->helper->resetCommands($this->magento->getDeployMode()) as $method => $messages) {
             if (!$this->processCommands($method)) {
                 $this->logger->error($messages['errorMessage']);
                 return false;
             }
-            $this->logger->info($messages['successMessage']);
         }
 
         return true;
@@ -109,7 +108,7 @@ class UpdatePatches
     /**
      * Process Commands
      *
-     * @param string $method
+     * @param  string $method
      * @return bool
      */
     private function processCommands(

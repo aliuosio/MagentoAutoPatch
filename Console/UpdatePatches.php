@@ -153,7 +153,7 @@ class UpdatePatches extends Command
      */
     private function processCommands(OutputInterface $output): ?string
     {
-        foreach ($this->helper->getCommands() as $method => $messages) {
+        foreach ($this->helper->resetCommands($this->magento->getDeployMode()) as $method => $messages) {
             $output->writeln($messages['startMessage']);
             if (!$this->executeStep($method, $messages['successMessage'], $messages['errorMessage'], $output)) {
                 return $this->helper->getError();
