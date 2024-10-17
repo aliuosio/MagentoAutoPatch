@@ -13,7 +13,7 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Cron/etc/crontab.xsd">
     <group id="default">
         <job name="autopatch_cron_update" instance="Osio\MagentoAutoPatch\Cron\UpdatePatches" method="execute">
-           <schedule>0 0,12 * * *</schedule>
+           <schedule>0 11 * * *</schedule>
         </job>
     </group>
 </config>
