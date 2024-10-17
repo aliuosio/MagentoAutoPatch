@@ -45,11 +45,11 @@ class UpdatePatches
     private Magento $magento;
 
     /**
-     * @param Log      $logger
-     * @param Data     $helper
-     * @param Email    $email
+     * @param Log $logger
+     * @param Data $helper
+     * @param Email $email
      * @param Composer $composer
-     * @param Magento  $magento
+     * @param Magento $magento
      */
     public function __construct(
         Log      $logger,
@@ -76,18 +76,51 @@ class UpdatePatches
         if ($this->helper->isEnabled() && $this->helper->hasAutoUpdateEnabled()) {
             if ($this->runner()) {
                 $this->logger->info(self::class . " ran successfully");
-                $this->email->send($this->composer->getVersion());
+                if ($this->helper->notifyAfter()) {
+                    $this->email->send($this->composer->getVersion());
+                }
             }
         }
     }
 
     /**
-     * All Runner
+     * Runnner
      *
      * @return bool
+     * @throws FileSystemException
      */
     private function runner(): bool
     {
+        if ($this->composer->getLatest() === null) {
+            return false;
+        }
+
+        foreach ($this->helper->getCommands() as $method => $messages) {
+            if (!$this->processCommands($method)) {
+                $this->logger->error($messages['errorMessage']);
+                return false;
+            }
+            $this->logger->info($messages['successMessage']);
+        }
+
         return true;
+    }
+
+    /**
+     * Process Commands
+     *
+     * @param string $method
+     * @return bool
+     */
+    private function processCommands(
+        string $method
+    ): bool {
+        if ((method_exists($this->composer, $method) && $this->composer->$method())
+            || (method_exists($this->magento, $method) && $this->magento->$method())
+        ) {
+            return true;
+        }
+
+        return false;
     }
 }

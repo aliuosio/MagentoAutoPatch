@@ -35,7 +35,7 @@
             <current_version>Current Magento Version: %s</current_version>
             <is_up_to_data>Magento is already up to date!</is_up_to_data>
             <not_enabled>Auto Patcher is not enabled in Backend</not_enabled>
-            <messages>
+            <commands>
                 <downloadLatestVersion>
                     <startMessage><![CDATA[<comment>Downloading latest version...</comment>]]></startMessage>
                     <successMessage><![CDATA[<info>Downloaded latest version successfully.</info>]]></successMessage>
@@ -56,7 +56,7 @@
                     <successMessage><![CDATA[<info>Production Mode set successfully.</info>]]></successMessage>
                     <errorMessage><![CDATA[<error>Error setting Production Mode.</error>]]></errorMessage>
                 </runSetProdcutionMode>
-            </messages>
+            </commands>
         </patcher>
     </default>
 </config>

@@ -20,7 +20,7 @@ class Data extends AbstractHelper
     private const NOTIFY_BEFORE = 'patcher/settings/notify/before';
     private const NOTIFY_AFTER = 'patcher/settings/notify/after';
     private const AUTO = 'patcher/settings/automatic';
-    private const MESSAGES = 'patcher/messages';
+    private const COMMNANDS = 'patcher/commands';
     private const QUESTION = 'patcher/question';
     private const CHECK_MESG = 'patcher/process/check';
     private const NOT_ENABLED = 'patcher/not_enabled';
@@ -79,9 +79,9 @@ class Data extends AbstractHelper
      *
      * @return array
      */
-    public function getMessages(): array
+    public function getCommands(): array
     {
-        return $this->scopeConfig->getValue(Data::MESSAGES);
+        return $this->scopeConfig->getValue(Data::COMMNANDS);
     }
 
     /**
@@ -203,6 +203,6 @@ class Data extends AbstractHelper
      */
     public function hasAutoUpdateEnabled(): bool
     {
-        return (bool)$this->scopeConfig->getValue(Data::PROD_MESG);
+        return (bool)$this->scopeConfig->getValue(Data::AUTO);
     }
 }

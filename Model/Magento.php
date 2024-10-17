@@ -25,7 +25,8 @@ class Magento
      */
     public function __construct(
         ProcessWrapper $processWrapper
-    ) {
+    )
+    {
         $this->processWrapper = $processWrapper;
     }
 
@@ -62,12 +63,14 @@ class Magento
     /**
      * Set Prodcution Mode if enabled before
      *
-     * @return Process
+     * @return Process|null
      */
-    public function runSetProdcutionMode(): Process
+    public function runSetProdcutionMode(): ?Process
     {
         if (stristr($this->getDeployMode(), 'production')) {
             return $this->processWrapper->runCommand("bin/magento deploy:mode:set production --no-interaction");
         }
+
+        return null;
     }
 }
