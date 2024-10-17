@@ -34,6 +34,7 @@ The **Patch AutoUpdater** module for Magento 2 automates the process of checking
 * ~~add error handling in extra module log~~
 * ~~add separate log file~~
 * ~~Add backend Dialog and command implementation: Enable switch~~
+* Fix Error setting Production Mode when not in production modea
 * Add backend Dialog and command implementation: notification per mail of available patch
 * Add backend Dialog and command implementation: Patch automatically or not (comment cron has to bee set up to use)
 * Add backend Dialog and command implementation: notification per mail of after auto-patch
