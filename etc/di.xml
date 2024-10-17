@@ -17,7 +17,6 @@
         <arguments>
             <argument name="commands" xsi:type="array">
                 <item name="patch_update" xsi:type="object">Osio\MagentoAutoPatch\Console\UpdatePatches</item>
-                <item name="patch:test-email" xsi:type="object">Osio\MagentoAutoPatch\Console\TestEmailCommand</item>
             </argument>
         </arguments>
     </type>
