@@ -35,7 +35,7 @@ The **Patch AutoUpdater** module for Magento 2 automates the process of checking
 * ~~add separate log file~~
 * ~~Add backend Dialog and command implementation: Enable switch~~
 * ~~fix Error setting Production Mode when not in production mode~~
-* add comments under fields in system.xml
+* ~~add comments under fields in system.xml~~
 * add disclaimer to README
 * ~~change composer usage~~
 * test on magento 2.4.0
