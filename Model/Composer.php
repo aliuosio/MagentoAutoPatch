@@ -52,9 +52,9 @@ class Composer
      */
     public function __construct(
         ProcessWrapper $processWrapper,
-        DirectoryList $directoryList,
-        Json          $json,
-        File          $file
+        DirectoryList  $directoryList,
+        Json           $json,
+        File           $file
     ) {
         $this->directoryList = $directoryList;
         $this->json = $json;
@@ -90,8 +90,8 @@ class Composer
     public function whichMagento(): ?string
     {
         $magentoPackages = [
-        'magento/magento-cloud-metapackage',
-        'magento/product-community-edition'
+            'magento/magento-cloud-metapackage',
+            'magento/product-community-edition'
         ];
 
         foreach ($magentoPackages as $package) {
@@ -129,7 +129,10 @@ class Composer
     public function downloadLatestVersion(): bool
     {
         return $this->processWrapper
-            ->runCommand("composer require-commerce {$this->whichMagento()}:{$this->getLatest()} -n -W")
+            ->runCommand("composer require-commerce {$this->whichMagento()}:{$this->getLatest()} -n --no-update")
+            ->isSuccessful()
+            &&
+            $this->processWrapper->runCommand("composer update -n")
             ->isSuccessful();
     }
 
