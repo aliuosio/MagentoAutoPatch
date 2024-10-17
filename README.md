@@ -3,8 +3,6 @@
 ## Overview
 
 The **Patch AutoUpdater** module for Magento 2 automates the process of checking and applying **minor patches (example: 2.4.6 - 2.4.6-p2)**. It integrates directly with Magento’s patch management system, reducing the need for manual intervention, ensuring your store remains secure and up-to-date.
-> tested with Magento 2.4.0 - Magento 2.4.7 
-
 > PHP versions: PHP 7.4 - PHP 8.3
 
 ## Features
@@ -26,6 +24,12 @@ The **Patch AutoUpdater** module for Magento 2 automates the process of checking
 ### Patch the System (automatic per cron or manually)
     # manually
     bin/magento patch:update
+
+## Minor Requirements
+Before using the module, ensure your system meets the following requirements:
+1. **PHP**: Version 7.4 or higher.
+2. **Composer**: Version 2.1.6 or higher.
+3. **Magento**: Version 2.4.0 or higher.
 
 ### Disclaimer
 
@@ -52,7 +56,6 @@ By using this module, you acknowledge that you are solely responsible for any ou
 * ~~add comments under fields in system.xml~~
 * ~~add disclaimer to README~~
 * ~~change composer usage~~
-* test on magento 2.4.0
 * add minor requirements
 * Add backend Dialog and command implementation: notification per mail of available patch
 * Add backend Dialog and command implementation: Patch automatically or not (comment cron has to bee set up to use)
