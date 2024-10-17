@@ -60,22 +60,14 @@ class Magento
     }
 
     /**
-     * Set Deploy Mode Production
+     * Set Prodcution Mode if enabled before
      *
      * @return Process
      */
-    public function setDeployModeProduction(): Process
+    public function runSetProdcutionMode(): Process
     {
-        return $this->processWrapper->runCommand("bin/magento deploy:mode:set production --no-interaction");
-    }
-
-    /**
-     * Disable Maintenance Mode
-     *
-     * @return Process
-     */
-    public function disableMaintenanceMode(): Process
-    {
-        return $this->processWrapper->runCommand("bin/magento maintenance:disable --no-interaction");
+        if (stristr($this->getDeployMode(), 'production')) {
+            return $this->processWrapper->runCommand("bin/magento deploy:mode:set production --no-interaction");
+        }
     }
 }

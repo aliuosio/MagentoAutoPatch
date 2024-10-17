@@ -138,7 +138,7 @@ class UpdatePatches extends Command
             return '';
         }
 
-        if ($this->processCommands($output) && $this->checkAndSetProductionMode($output)) {
+        if ($this->processCommands($output)) {
             return $this->helper->getSuccess();
         }
 
@@ -187,24 +187,6 @@ class UpdatePatches extends Command
         $output->writeln($errorMessage);
 
         return false;
-    }
-
-    /**
-     * Checks the current deploy mode and sets it to production if needed.
-     *
-     * @param  OutputInterface $output
-     * @return bool
-     */
-    private function checkAndSetProductionMode(OutputInterface $output): bool
-    {
-        if (stristr($this->magento->getDeployMode(), 'production')) {
-            $output->writeln($this->helper->getProductionMesssage());
-
-            return $this->magento->setDeployModeProduction()->isSuccessful() &&
-                $this->magento->disableMaintenanceMode()->isSuccessful();
-        }
-
-        return true;
     }
 
     /**

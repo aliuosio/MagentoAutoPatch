@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+* @author     Osiozekhai Aliu
+* @package    Osio_MagentoAutoPatch
+* @copyright  Copyright (c) 2024 Osio
+*
+* For the full copyright and license information, please view the LICENSE
+* file that was distributed with this source code.
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Cron/etc/crontab.xsd">
+    <group id="default">
+        <job name="autopatch_cron_update" instance="Osio\MagentoAutoPatch\Cron\UpdatePatches" method="execute">
+           <schedule>0 0,12 * * *</schedule>
+        </job>
+    </group>
+</config>

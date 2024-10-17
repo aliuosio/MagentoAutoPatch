@@ -51,6 +51,11 @@
                     <successMessage><![CDATA[<info>Cache cleared successfully.</info>]]></successMessage>
                     <errorMessage><![CDATA[<error>Error clearing cache.</error>]]></errorMessage>
                 </runCacheClear>
+                <runSetProdcutionMode>
+                    <startMessage><![CDATA[<comment>Settting Production Mode...</comment>]]></startMessage>
+                    <successMessage><![CDATA[<info>Production Mode set successfully.</info>]]></successMessage>
+                    <errorMessage><![CDATA[<error>Error setting Production Mode.</error>]]></errorMessage>
+                </runSetProdcutionMode>
             </messages>
         </patcher>
     </default>

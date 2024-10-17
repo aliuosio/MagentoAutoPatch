@@ -195,4 +195,14 @@ class Data extends AbstractHelper
     {
         return $this->scopeConfig->getValue(Data::PROD_MESG);
     }
+
+    /**
+     * Get Production Messsage
+     *
+     * @return bool
+     */
+    public function hasAutoUpdateEnabled(): bool
+    {
+        return (bool)$this->scopeConfig->getValue(Data::PROD_MESG);
+    }
 }
