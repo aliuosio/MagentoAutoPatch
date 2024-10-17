@@ -1,4 +1,4 @@
-# Magento Auto Patch (WORK IN PROGRESS)
+# Magento Auto Patch
 
 ## Overview
 
