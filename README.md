@@ -11,6 +11,7 @@ The **Patch AutoUpdater** module for Magento 2 automates the process of checking
 - **Patch Application**: Applies patches directly via CLI or automated cron jobs.
 - **Custom CLI Command**: Use `bin/magento patch:update` to manually check and apply patches.
 - **Logging**: log errors `auto-patch.log`. This get sent on failure with the after patch notification
+- **Restricted Usage** for Users in Admin Group ony
 
 ## Installation
 
