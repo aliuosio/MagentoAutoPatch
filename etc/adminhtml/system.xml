@@ -74,6 +74,7 @@
                        showInWebsite="1" showInStore="1">
                     <label>E-Mail: </label>
                     <validate>required-entry validate-email</validate>
+                    <frontend_class>validate-email</frontend_class>
                 </field>
             </group>
             <group id="notification_after" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1"
@@ -87,6 +88,7 @@
                        showInWebsite="1" showInStore="1">
                     <label>E-Mail: </label>
                     <validate>required-entry validate-email</validate>
+                    <frontend_class>validate-email</frontend_class>
                 </field>
             </group>
         </section>
