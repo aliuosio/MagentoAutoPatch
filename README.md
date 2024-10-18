@@ -13,6 +13,8 @@ The **Patch AutoUpdater** module for Magento 2 automates the process of checking
 - **Logging**: log errors `auto-patch.log`. This get sent on failure with the after patch notification
 - **Restricted Usage** for Users in Admin Group ony
 
+**If something goes wrong or you don't want to patch yourself. Send me a mail: oaliu@hotmail.com**
+
 ## Installation
 
 ### Install the Module
