@@ -82,7 +82,7 @@ class UpdatePatches extends Command
         if ($this->helper->isEnabled()) {
             $this->runner($input, $output);
         } else {
-            $output->writeln($this->helper->notEnabled());
+            $output->writeln($this->helper->notEnabledMessage());
             return Cli::RETURN_FAILURE;
         }
         return Cli::RETURN_SUCCESS;

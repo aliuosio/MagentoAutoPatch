@@ -54,7 +54,7 @@
                 <field id="notify_after" translate="label" type="select" sortOrder="40" showInDefault="1"
                        showInWebsite="1" showInStore="1">
                     <label>Send notification mail after update</label>
-                    <comment>You will receive an email once the patch is successfully applied.</comment>
+                    <comment>You will receive an email about the patch process. On Failure the auto-patch.log will be attached to the E-Mail</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
                         <field id="autopatch/settings/automatic">1</field>

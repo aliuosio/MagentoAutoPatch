@@ -34,7 +34,7 @@
             <update_avaiable>Update available!</update_avaiable>
             <current_version>Current Magento Version: %s</current_version>
             <is_up_to_data>Magento is already up to date!</is_up_to_data>
-            <not_enabled>Auto Patcher is not enabled in Backend</not_enabled>
+            <not_enabled_mesg>Auto Patcher is not enabled in Backend</not_enabled_mesg>
             <commands>
                 <downloadLatestVersion>
                     <startMessage><![CDATA[<comment>Downloading latest version...</comment>]]></startMessage>

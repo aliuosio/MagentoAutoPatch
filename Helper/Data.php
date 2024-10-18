@@ -23,7 +23,6 @@ class Data extends AbstractHelper
     private const COMMNANDS = 'autopatch/commands';
     private const QUESTION = 'autopatch/question';
     private const CHECK_MESG = 'autopatch/process/check';
-    private const NOT_ENABLED = 'autopatch/not_enabled';
     private const MINOR_VERSION = 'autopatch/minor_version';
     private const CURRENT_VERSION = 'autopatch/current_version';
     private const UPDATE_AVAIABLE = 'autopatch/update_avaiable';
@@ -33,6 +32,7 @@ class Data extends AbstractHelper
     private const SUCCESS = 'autopatch/success';
     private const ERROR = 'autopatch/error';
     private const PROD_MESG = 'autopatch/production_mode_mesg';
+    private const NOT_ENABLED_MESG = 'autopatch/not_enabled_mesg';
 
     /**
      * Check if module enabled
@@ -42,16 +42,6 @@ class Data extends AbstractHelper
     public function isEnabled(): bool
     {
         return (bool)$this->scopeConfig->getValue(Data::ENABLED);
-    }
-
-    /**
-     * Check if module enabled
-     *
-     * @return bool
-     */
-    public function notEnabled(): bool
-    {
-        return (bool)$this->scopeConfig->getValue(Data::NOT_ENABLED);
     }
 
     /**
@@ -221,5 +211,15 @@ class Data extends AbstractHelper
         }
 
         return $result;
+    }
+
+    /**
+     * Not enabled Message
+     *
+     * @return ?string
+     */
+    public function notEnabledMessage(): ?string
+    {
+        return $this->scopeConfig->getValue(Data::NOT_ENABLED_MESG);
     }
 }
