@@ -26,7 +26,7 @@ class Handler extends StreamHandler
     /**
      * @var int
      */
-    protected int $loggerType = MonologLogger::ERROR;
+    protected int $loggerType = MonologLogger::INFO;
 
     /**
      * @var string
