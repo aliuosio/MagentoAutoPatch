@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+/**
+* @author     Osiozekhai Aliu
+* @package    Osio_MagentoAutoPatch
+* @copyright  Copyright (c) 2024 Osio
+*
+* For the full copyright and license information, please view the LICENSE
+* file that was distributed with this source code.
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <!-- Main Auto Patch Configuration -->
+                <resource id="Osio_MagentoAutoPatch::config" title="Auto Patch Configuration" sortOrder="100">
+                    <!-- General Settings Group -->
+                    <resource id="Osio_MagentoAutoPatch::general" title="General Settings" sortOrder="110">
+                        <resource id="Osio_MagentoAutoPatch::general_enabled" title="Enable/Disable Auto Patch" sortOrder="111"/>
+                    </resource>
+
+                    <!-- Patch Settings Group -->
+                    <resource id="Osio_MagentoAutoPatch::settings" title="Patch Settings" sortOrder="120">
+                        <resource id="Osio_MagentoAutoPatch::settings_notify_before" title="Send New Patch Notification" sortOrder="121" />
+                        <resource id="Osio_MagentoAutoPatch::settings_automatic" title="Update Automatically" sortOrder="122" />
+                        <resource id="Osio_MagentoAutoPatch::settings_notify_after" title="Send Notification After Update" sortOrder="123" />
+                    </resource>
+
+                    <!-- Notification New Patch Group -->
+                    <resource id="Osio_MagentoAutoPatch::notification_before" title="Notification New Patch" sortOrder="130">
+                        <resource id="Osio_MagentoAutoPatch::notification_before_email" title="New Patch Notification Email" sortOrder="131" />
+                    </resource>
+
+                    <!-- Notification After Patching Group -->
+                    <resource id="Osio_MagentoAutoPatch::notification_after" title="Notification After Patching" sortOrder="140">
+                        <resource id="Osio_MagentoAutoPatch::notification_after_email" title="After Patching Notification Email" sortOrder="141" />
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>
