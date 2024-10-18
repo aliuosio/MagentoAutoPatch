@@ -46,9 +46,9 @@ class Composer
 
     /**
      * @param ProcessWrapper $processWrapper
-     * @param DirectoryList  $directoryList
-     * @param Json           $json
-     * @param File           $file
+     * @param DirectoryList $directoryList
+     * @param Json $json
+     * @param File $file
      */
     public function __construct(
         ProcessWrapper $processWrapper,
@@ -123,17 +123,23 @@ class Composer
     /**
      * Download latets version
      *
-     * @return bool
+     * @return Process
      * @throws FileSystemException
      */
-    public function downloadLatestVersion(): bool
+    public function downloadLatestVersion(): Process
     {
         return $this->processWrapper
-            ->runCommand("composer require-commerce {$this->whichMagento()}:{$this->getLatest()} -n --no-update")
-            ->isSuccessful()
-            &&
-            $this->processWrapper->runCommand("composer update -n")
-            ->isSuccessful();
+            ->runCommand("composer require-commerce {$this->whichMagento()}:{$this->getLatest()} -n --no-update");
+    }
+
+    /**
+     * Update
+     *
+     * @return Process
+     */
+    public function update(): Process
+    {
+        return $this->processWrapper->runCommand("composer update -n");
     }
 
     /**
@@ -165,7 +171,7 @@ class Composer
     /**
      *  Extracts the base version (major.minor.patch) from the current version.
      *
-     * @param  string $currentVersion
+     * @param string $currentVersion
      * @return string
      */
     private function extractBaseVersion(string $currentVersion): string
@@ -189,8 +195,8 @@ class Composer
     /**
      * Filters available versions to match the current major.minor.patch version.
      *
-     * @param  array  $availableVersions
-     * @param  string $baseVersion
+     * @param array $availableVersions
+     * @param string $baseVersion
      * @return array
      */
     private function filterVersions(array $availableVersions, string $baseVersion): array
@@ -198,7 +204,7 @@ class Composer
         return array_filter(
             $availableVersions,
             function ($version) use ($baseVersion) {
-                return preg_match("/^$baseVersion-p\d+$/", $version); // Match the base version with patch
+                return preg_match("/^$baseVersion-p\d+$/", $version);
             }
         );
     }
@@ -206,7 +212,7 @@ class Composer
     /**
      * Sorts the filtered versions and returns the latest patch version.
      *
-     * @param  array $filteredVersions
+     * @param array $filteredVersions
      * @return string
      */
     private function getLatestPatchVersion(array $filteredVersions): string
@@ -218,8 +224,8 @@ class Composer
     /**
      * Compares the current version with the latest patch version.
      *
-     * @param  string $currentVersion
-     * @param  string $latestPatch
+     * @param string $currentVersion
+     * @param string $latestPatch
      * @return bool
      */
     private function isNewerVersion(string $currentVersion, string $latestPatch): bool

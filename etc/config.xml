@@ -41,6 +41,11 @@
                     <successMessage><![CDATA[<info>Downloaded latest version successfully.</info>]]></successMessage>
                     <errorMessage><![CDATA[<error>Error downloading latest version.</error>]]></errorMessage>
                 </downloadLatestVersion>
+                <update>
+                    <startMessage><![CDATA[<comment>Running composer update</comment>]]></startMessage>
+                    <successMessage><![CDATA[<info>Composer update successfully.</info>]]></successMessage>
+                    <errorMessage><![CDATA[<error>Composer update went wrong.</error>]]></errorMessage>
+                </update>
                 <runSetupUpgrade>
                     <startMessage><![CDATA[<comment>Running setup upgrade...</comment>]]></startMessage>
                     <successMessage><![CDATA[<info>Setup upgrade completed successfully.</info>]]></successMessage>
