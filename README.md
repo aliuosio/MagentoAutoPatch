@@ -56,7 +56,7 @@ By using this module, you acknowledge that you are solely responsible for any ou
 * ~~add comments under fields in system.xml~~
 * ~~add disclaimer to README~~
 * ~~change composer usage~~
-* add minor requirements
+* ~~add minor requirements~~
 * Add backend Dialog and command implementation: notification per mail of available patch
 * Add backend Dialog and command implementation: Patch automatically or not (comment cron has to bee set up to use)
 * Add backend Dialog and command implementation: notification per mail of after auto-patch
