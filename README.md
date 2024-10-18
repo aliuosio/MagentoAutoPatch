@@ -39,13 +39,7 @@ Before using the module, ensure your system meets the following requirements:
 This module, **Osio_MagentoAutoPatch**, is designed to assist with applying Magento patches automatically. **It is intended for use on test or staging servers only.** Before applying any patches or updates to a live production environment, you should thoroughly test them in a non-production environment to ensure compatibility and stability.
 
 I, the author, **Osiozekhai Aliu**, **take no responsibility** for any issues, downtime, or broken functionality that may arise from using this module on production servers. It is strongly recommended that all patches are tested in a controlled environment before being applied to a production server.
-
-#### Usage Instructions:
-- Apply this module to a **test server** first.
-- Ensure that the patch does not cause any issues in your test environment.
-- Only after confirming that the test environment is stable, proceed with applying the patch manually on your production server.
-
-By using this module, you acknowledge that you are solely responsible for any outcomes resulting from its use in production environments.
+By using this module, you acknowledge that you are solely responsible for any outcomes resulting from its use.
 
 #### Todos
 * ~~add command implementation: Feedback loop for processes~~
