@@ -21,7 +21,7 @@
             <label>Auto Patch</label>
             <tab>osio</tab>
             <resource>Osio_MagentoAutoPatch::config</resource>
-            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+            <group id="general" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
                    showInStore="1">
                 <label>Configuration</label>
                 <attribute type="expanded">1</attribute>
@@ -32,7 +32,7 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
             </group>
-            <group id="settings" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
+            <group id="settings" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1"
                    showInStore="1" advanced="false">
                 <depends>
                     <field id="autopatch/general/enabled">1</field>
@@ -63,19 +63,28 @@
                     </depends>
                 </field>
             </group>
-            <group id="notification" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1"
+            <group id="notification_before" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1"
                    showInStore="1" advanced="false">
                 <depends>
                     <field id="autopatch/settings/notify_before">1</field>
                 </depends>
-                <depends>
-                    <field id="autopatch/settings/notify_after">1</field>
-                </depends>
-                <label>Notification</label>
+                <label>New patch Notification</label>
                 <attribute type="expanded">1</attribute>
                 <field id="email" translate="label" type="text" sortOrder="20" showInDefault="1"
                        showInWebsite="1" showInStore="1">
-                    <label>E-Mail</label>
+                    <label>E-Mail: </label>
+                </field>
+            </group>
+            <group id="notification_after" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1"
+                   showInStore="1" advanced="false">
+                <depends>
+                    <field id="autopatch/settings/notify_after">1</field>
+                </depends>
+                <label>Notification after patching</label>
+                <attribute type="expanded">1</attribute>
+                <field id="email" translate="label" type="text" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>E-Mail: </label>
                 </field>
             </group>
         </section>
