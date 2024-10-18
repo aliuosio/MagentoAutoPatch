@@ -12,7 +12,7 @@ namespace Osio\MagentoAutoPatch\Model\Notifier;
 
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\MailException;
-use Magento\Framework\Mail\Template\TransportBuilder;
+use Osio\MaillWithAttachment\Model\TransportBuilder;
 use Magento\Framework\App\Area;
 use Osio\MagentoAutoPatch\Model\Logger\Log;
 use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
