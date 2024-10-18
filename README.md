@@ -1,7 +1,5 @@
 # Magento Auto Patch
 
-## Overview
-
 The **Patch AutoUpdater** module for Magento 2 automates the process of checking and applying **minor patches (example: 2.4.6 - 2.4.6-p2)**. It integrates directly with Magento’s patch management system, reducing the need for manual intervention, ensuring your store remains secure and up-to-date.
 
 ## Features
@@ -14,19 +12,15 @@ The **Patch AutoUpdater** module for Magento 2 automates the process of checking
 
 **If something goes wrong or you don't want to patch yourself. Send me a mail: oaliu@hotmail.com**
 
-## Installation
-
-### Install the Module
+### Installation
     composer require aliuosio/magento-autopatch
     bin/magento setup:upgrade
 
-### Enable the Module
+### Enable the Module (automates check for new patch and install)
     stores -> configuration -> Osio -> Auto Patcher -> enable
 <img src="backend-config.png" alt="Alt text" width="800"/>
 
-
-### Patch the System (automatic per cron or manually)
-    # manually
+### Patch the System (manually check for new patch and install)
     bin/magento patch:update
 
 ## Minor Requirements
