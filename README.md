@@ -10,7 +10,7 @@ The **Patch AutoUpdater** module for Magento 2 automates the process of checking
 - **Logging**: log errors `auto-patch.log`. This get sent on failure with the after patch notification
 - **Restricted Usage** for Users in Admin Group ony
 
-**If something goes wrong or you don't want to patch yourself. Send me mail: oaliu@hotmail.com**
+**If something goes wrong or you don't want to patch yourself. Send me an E-Mail: oaliu@hotmail.com**
 
 ### Installation
     composer require aliuosio/magento-autopatch
@@ -64,11 +64,13 @@ By using this module, you acknowledge that you are solely responsible for any ou
 
 
 #### Support
-If you encounter any problems or bugs, please create an issue on [GitHub](https://github.com/aliuosio/mage2.docker/issues).
+If you encounter any problems or bugs, please create an issue on [GitHub](https://github.com/aliuosio/MagentoAutoPatch/issues).
 
 #### Contribute
 Please Contribute by creating a fork of this repository.  
 Follow the instructions here: https://help.github.com/articles/fork-a-repo/
+
+If i know you and yours skills i will add you as user to the repo. please create branches with your changes then to merge
 
 #### License
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://openng.de/source.org/licenses/MIT)
