@@ -4,13 +4,13 @@ The **Patch AutoUpdater** module for Magento 2 automates the process of checking
 
 ## Features
 - **Automated Patch Lookup**: Automatically checks for the latest Magento patches.
+- **For Adobe Commerce and Magento Open Source**
 - **Notifies you** before and after the update
-- **Patch Application**: Applies patches directly via CLI or automated cron jobs.
 - **Custom CLI Command**: Use `bin/magento patch:update` to manually check and apply patches.
 - **Logging**: log errors `auto-patch.log`. This get sent on failure with the after patch notification
 - **Restricted Usage** for Users in Admin Group ony
 
-**If something goes wrong or you don't want to patch yourself. Send me a mail: oaliu@hotmail.com**
+**If something goes wrong or you don't want to patch yourself. Send me mail: oaliu@hotmail.com**
 
 ### Installation
     composer require aliuosio/magento-autopatch
@@ -22,6 +22,12 @@ The **Patch AutoUpdater** module for Magento 2 automates the process of checking
 
 ### Patch the System (manually check for new patch and install)
     bin/magento patch:update
+
+### Overview automated commands
+    composer require (--no-update)
+    composer update
+    bin/magento setup:upgrade
+    bin/magento cache:flush
 
 ## Minor Requirements
 Before using the module, ensure your system meets the following requirements:
@@ -54,3 +60,14 @@ By using this module, you acknowledge that you are solely responsible for any ou
 * ~~Add backend Dialog and command implementation: notification per mail of after auto-patch~~
 * add auto-patch.log as Attachment to after patch mail
 * Add ACL
+
+
+#### Support
+If you encounter any problems or bugs, please create an issue on [GitHub](https://github.com/aliuosio/mage2.docker/issues).
+
+#### Contribute
+Please Contribute by creating a fork of this repository.  
+Follow the instructions here: https://help.github.com/articles/fork-a-repo/
+
+#### License
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://openng.de/source.org/licenses/MIT)
