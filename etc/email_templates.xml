@@ -19,4 +19,12 @@
         module="Osio_MagentoAutoPatch"
         type="html"
     />
+    <template
+        area="frontend"
+        file="patch_failure.html"
+        id="patch_failure"
+        label="Patch Failure Notification"
+        module="Osio_MagentoAutoPatch"
+        type="html"
+    />
 </config>

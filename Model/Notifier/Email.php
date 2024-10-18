@@ -53,26 +53,39 @@ class Email
     /**
      * Send E-Mail
      *
-     * @param  string $version
+     * @param  bool        $runnerSuuccess
+     * @param  string      $version
+     * @param  string|null $getNotifyAfterEmail
      * @return bool
      */
-    public function send(string $version): bool
+    public function sendAfterPatch(bool $runnerSuuccess, string $version, ?string $getNotifyAfterEmail): bool
     {
         try {
             $transport = $this->transportBuilder
-                ->setTemplateIdentifier('patch_success')
+                ->setTemplateIdentifier($this->getAfterPatchTemplate($runnerSuuccess))
                 ->setTemplateOptions($this->getOptions())
                 ->setTemplateVars($this->getVars($version))
                 ->setFromByScope('general')
-                ->addTo('admin@example.com')
+                ->addTo($getNotifyAfterEmail)
                 ->getTransport();
 
             $transport->sendMessage();
         } catch (LocalizedException|MailException $e) {
-            $this->logger->error("Error sending success email: {$e->getMessage()}");
+            $this->logger->error("Error sending after patch email: {$e->getMessage()}");
             return false;
         }
         return true;
+    }
+
+    /**
+     * Get After Patch Template
+     *
+     * @param  bool $runnerSuuccess
+     * @return string
+     */
+    private function getAfterPatchTemplate(bool $runnerSuuccess): string
+    {
+        return ($runnerSuuccess) ? 'patch_success' : 'patch_failure';
     }
 
     /**

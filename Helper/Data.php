@@ -18,7 +18,9 @@ class Data extends AbstractHelper
 
     private const ENABLED = 'autopatch/general/enabled';
     private const NOTIFY_BEFORE = 'autopatch/settings/notify/before';
+    private const NOTIFY_BEFORE_EMAIL = 'autopatch/notification_before/email';
     private const NOTIFY_AFTER = 'autopatch/settings/notify/after';
+    private const NOTIFY_AFTER_EMAIL = 'autopatch/notification_after/email';
     private const AUTO = 'autopatch/settings/automatic';
     private const COMMNANDS = 'autopatch/commands';
     private const QUESTION = 'autopatch/question';
@@ -221,5 +223,25 @@ class Data extends AbstractHelper
     public function notEnabledMessage(): ?string
     {
         return $this->scopeConfig->getValue(Data::NOT_ENABLED_MESG);
+    }
+
+    /**
+     * Get Notify before Email
+     *
+     * @return ?string
+     */
+    public function getNotifyBeforeEmail(): ?string
+    {
+        return $this->scopeConfig->getValue(Data::NOTIFY_BEFORE_EMAIL);
+    }
+
+    /**
+     * Get Notify After Email
+     *
+     * @return ?string
+     */
+    public function getNotifyAfterEmail(): ?string
+    {
+        return $this->scopeConfig->getValue(Data::NOTIFY_AFTER_EMAIL);
     }
 }

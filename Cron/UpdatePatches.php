@@ -74,13 +74,31 @@ class UpdatePatches
     public function execute()
     {
         if ($this->helper->isEnabled() && $this->helper->hasAutoUpdateEnabled()) {
+            $runnerSuuccess = false;
             if ($this->runner()) {
                 $this->logger->info(self::class . " ran successfully");
-                if ($this->helper->notifyAfter()) {
-                    $this->email->send($this->composer->getVersion());
-                }
+                $runnerSuuccess = true;
+            }
+            if ($this->setNotifiction($runnerSuuccess)) {
+                $this->logger->info(self::class . " E-Mail sent");
             }
         }
+    }
+
+    /**
+     * Set Notifiction
+     *
+     * @param  bool $runnerSuuccess
+     * @return bool
+     * @throws FileSystemException
+     */
+    private function setNotifiction(bool $runnerSuuccess): bool
+    {
+        return $this->email->sendAfterPatch(
+            $runnerSuuccess,
+            $this->composer->getVersion(),
+            $this->helper->getNotifyAfterEmail()
+        );
     }
 
     /**

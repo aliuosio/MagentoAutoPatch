@@ -46,9 +46,9 @@ class Composer
 
     /**
      * @param ProcessWrapper $processWrapper
-     * @param DirectoryList $directoryList
-     * @param Json $json
-     * @param File $file
+     * @param DirectoryList  $directoryList
+     * @param Json           $json
+     * @param File           $file
      */
     public function __construct(
         ProcessWrapper $processWrapper,
@@ -171,7 +171,7 @@ class Composer
     /**
      *  Extracts the base version (major.minor.patch) from the current version.
      *
-     * @param string $currentVersion
+     * @param  string $currentVersion
      * @return string
      */
     private function extractBaseVersion(string $currentVersion): string
@@ -195,8 +195,8 @@ class Composer
     /**
      * Filters available versions to match the current major.minor.patch version.
      *
-     * @param array $availableVersions
-     * @param string $baseVersion
+     * @param  array  $availableVersions
+     * @param  string $baseVersion
      * @return array
      */
     private function filterVersions(array $availableVersions, string $baseVersion): array
@@ -212,7 +212,7 @@ class Composer
     /**
      * Sorts the filtered versions and returns the latest patch version.
      *
-     * @param array $filteredVersions
+     * @param  array $filteredVersions
      * @return string
      */
     private function getLatestPatchVersion(array $filteredVersions): string
@@ -224,8 +224,8 @@ class Composer
     /**
      * Compares the current version with the latest patch version.
      *
-     * @param string $currentVersion
-     * @param string $latestPatch
+     * @param  string $currentVersion
+     * @param  string $latestPatch
      * @return bool
      */
     private function isNewerVersion(string $currentVersion, string $latestPatch): bool
