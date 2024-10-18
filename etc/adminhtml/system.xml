@@ -68,11 +68,12 @@
                 <depends>
                     <field id="autopatch/settings/notify_before">1</field>
                 </depends>
-                <label>New patch Notification</label>
+                <label>Notification New patch</label>
                 <attribute type="expanded">1</attribute>
                 <field id="email" translate="label" type="text" sortOrder="20" showInDefault="1"
                        showInWebsite="1" showInStore="1">
                     <label>E-Mail: </label>
+                    <validate>required-entry validate-email</validate>
                 </field>
             </group>
             <group id="notification_after" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1"
@@ -85,6 +86,7 @@
                 <field id="email" translate="label" type="text" sortOrder="20" showInDefault="1"
                        showInWebsite="1" showInStore="1">
                     <label>E-Mail: </label>
+                    <validate>required-entry validate-email</validate>
                 </field>
             </group>
         </section>
