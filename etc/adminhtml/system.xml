@@ -15,7 +15,7 @@
         <tab id="osio" translate="label" sortOrder="100">
             <label>Osio</label>
         </tab>
-        <section id="patcher" translate="label" sortOrder="50" showInDefault="1" showInWebsite="1"
+        <section id="autopatch" translate="label" sortOrder="50" showInDefault="1" showInWebsite="1"
                  showInStore="1">
             <class>separator-top</class>
             <label>Auto Patch</label>
@@ -24,38 +24,40 @@
             <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
                    showInStore="1">
                 <label>Configuration</label>
+                <attribute type="expanded">1</attribute>
                 <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1"
                        showInStore="1">
                     <label>Enabled</label>
-                    <comment>Enable or disable the auto-patching system.</comment> <!-- Add a comment for explanation -->
+                    <comment>Enable or disable the auto-patching system.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
             </group>
             <group id="settings" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
                    showInStore="1" advanced="false">
                 <depends>
-                    <field id="patcher/general/enabled">1</field>
+                    <field id="autopatch/general/enabled">1</field>
                 </depends>
                 <label>Settings</label>
+                <attribute type="expanded">1</attribute>
                 <field id="notify_before" translate="label" type="select" sortOrder="20" showInDefault="1"
                        showInWebsite="1" showInStore="1">
                     <label>Send new patch notification mail</label>
-                    <comment>Receive an email notification before a patch is applied.</comment> <!-- Added comment -->
+                    <comment>Receive an email notification without applying a new patch.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
                 <field id="automatic" translate="label" type="select" sortOrder="30" showInDefault="1"
                        showInWebsite="1" showInStore="1">
                     <label>Update automatically</label>
-                    <comment>If enabled, the patch will be applied automatically.</comment> <!-- Added comment -->
+                    <comment>If enabled, the patch will be applied automatically.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
                 <field id="notify_after" translate="label" type="select" sortOrder="40" showInDefault="1"
                        showInWebsite="1" showInStore="1">
                     <label>Send notification mail after update</label>
-                    <comment>You will receive an email once the patch is successfully applied.</comment> <!-- Added comment -->
+                    <comment>You will receive an email once the patch is successfully applied.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
-                        <field id="patcher/settings/automatic">1</field>
+                        <field id="autopatch/settings/automatic">1</field>
                     </depends>
                 </field>
             </group>

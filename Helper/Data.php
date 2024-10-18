@@ -16,23 +16,23 @@ use Magento\Framework\App\Helper\AbstractHelper;
 class Data extends AbstractHelper
 {
 
-    private const ENABLED = 'patcher/general/enabled';
-    private const NOTIFY_BEFORE = 'patcher/settings/notify/before';
-    private const NOTIFY_AFTER = 'patcher/settings/notify/after';
-    private const AUTO = 'patcher/settings/automatic';
-    private const COMMNANDS = 'patcher/commands';
-    private const QUESTION = 'patcher/question';
-    private const CHECK_MESG = 'patcher/process/check';
-    private const NOT_ENABLED = 'patcher/not_enabled';
-    private const MINOR_VERSION = 'patcher/minor_version';
-    private const CURRENT_VERSION = 'patcher/current_version';
-    private const UPDATE_AVAIABLE = 'patcher/update_avaiable';
-    private const IS_UP_TO_DATE = 'patcher/is_up_to_data';
-    private const COMMAND_UPDATE = 'patcher/command/update';
-    private const COMMAND_DESC = 'patcher/command/description';
-    private const SUCCESS = 'patcher/success';
-    private const ERROR = 'patcher/error';
-    private const PROD_MESG = 'patcher/production_mode_mesg';
+    private const ENABLED = 'autopatch/general/enabled';
+    private const NOTIFY_BEFORE = 'autopatch/settings/notify/before';
+    private const NOTIFY_AFTER = 'autopatch/settings/notify/after';
+    private const AUTO = 'autopatch/settings/automatic';
+    private const COMMNANDS = 'autopatch/commands';
+    private const QUESTION = 'autopatch/question';
+    private const CHECK_MESG = 'autopatch/process/check';
+    private const NOT_ENABLED = 'autopatch/not_enabled';
+    private const MINOR_VERSION = 'autopatch/minor_version';
+    private const CURRENT_VERSION = 'autopatch/current_version';
+    private const UPDATE_AVAIABLE = 'autopatch/update_avaiable';
+    private const IS_UP_TO_DATE = 'autopatch/is_up_to_data';
+    private const COMMAND_UPDATE = 'autopatch/command/update';
+    private const COMMAND_DESC = 'autopatch/command/description';
+    private const SUCCESS = 'autopatch/success';
+    private const ERROR = 'autopatch/error';
+    private const PROD_MESG = 'autopatch/production_mode_mesg';
 
     /**
      * Check if module enabled
