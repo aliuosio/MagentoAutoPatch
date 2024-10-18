@@ -51,27 +51,60 @@ class Email
     }
 
     /**
-     * Send E-Mail
+     * Send E-Mail after patch
      *
-     * @param  bool        $runnerSuuccess
+     * @param  bool        $isRunnerSuccess
      * @param  string      $version
-     * @param  string|null $getNotifyAfterEmail
+     * @param  string|null $notificationEmail
      * @return bool
      */
-    public function sendAfterPatch(bool $runnerSuuccess, string $version, ?string $getNotifyAfterEmail): bool
+    public function sendAfterPatch(bool $isRunnerSuccess, string $version, ?string $notificationEmail): bool
+    {
+        return $this->sendEmail(
+            $this->getAfterPatchTemplate($isRunnerSuccess),
+            $this->getSuccessVars($version),
+            $notificationEmail
+        );
+    }
+
+    /**
+     * Send New Patch Info
+     *
+     * @param  string|null $latestVersion
+     * @param  string|null $notificationEmail
+     * @return bool
+     */
+    public function sendNewPatchInfo(?string $latestVersion, ?string $notificationEmail): bool
+    {
+        return $this->sendEmail(
+            'patch_new',
+            ['version' => $latestVersion],
+            $notificationEmail
+        );
+    }
+
+    /**
+     * Send an E-Mail with a specific template and variables
+     *
+     * @param  string      $templateId
+     * @param  array       $templateVars
+     * @param  string|null $recipientEmail
+     * @return bool
+     */
+    private function sendEmail(string $templateId, array $templateVars, ?string $recipientEmail): bool
     {
         try {
             $transport = $this->transportBuilder
-                ->setTemplateIdentifier($this->getAfterPatchTemplate($runnerSuuccess))
-                ->setTemplateOptions($this->getOptions())
-                ->setTemplateVars($this->getVars($version))
+                ->setTemplateIdentifier($templateId)
+                ->setTemplateOptions($this->getAreaAndStoreVars())
+                ->setTemplateVars($templateVars)
                 ->setFromByScope('general')
-                ->addTo($getNotifyAfterEmail)
+                ->addTo($recipientEmail)
                 ->getTransport();
 
             $transport->sendMessage();
         } catch (LocalizedException|MailException $e) {
-            $this->logger->error("Error sending after patch email: {$e->getMessage()}");
+            $this->logger->error("Error sending email: {$e->getMessage()}");
             return false;
         }
         return true;
@@ -93,7 +126,7 @@ class Email
      *
      * @return array
      */
-    private function getOptions(): array
+    private function getAreaAndStoreVars(): array
     {
         return [
             'area' => Area::AREA_FRONTEND,
@@ -107,12 +140,11 @@ class Email
      * @param  string $version
      * @return array
      */
-    private function getVars(string $version): array
+    private function getSuccessVars(string $version): array
     {
         return [
             'version' => $version,
             'update_time' => $this->timezone->date()->format('Y-m-d H:i:s'),
-            'message' => 'Magento has been successfully updated with the latest patches.'
         ];
     }
 }

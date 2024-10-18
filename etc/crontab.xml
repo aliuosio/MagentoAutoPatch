@@ -15,5 +15,8 @@
         <job name="autopatch_cron_update" instance="Osio\MagentoAutoPatch\Cron\UpdatePatches" method="execute">
            <schedule>0 11 * * *</schedule>
         </job>
+        <job name="autopatch_cron_notify" instance="Osio\MagentoAutoPatch\Cron\NewPatchNotification" method="execute">
+            <schedule>0 11 * * *</schedule>
+        </job>
     </group>
 </config>

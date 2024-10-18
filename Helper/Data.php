@@ -17,9 +17,9 @@ class Data extends AbstractHelper
 {
 
     private const ENABLED = 'autopatch/general/enabled';
-    private const NOTIFY_BEFORE = 'autopatch/settings/notify/before';
+    private const NOTIFY_BEFORE = 'autopatch/settings/notify_before';
     private const NOTIFY_BEFORE_EMAIL = 'autopatch/notification_before/email';
-    private const NOTIFY_AFTER = 'autopatch/settings/notify/after';
+    private const NOTIFY_AFTER = 'autopatch/settings/notify_after';
     private const NOTIFY_AFTER_EMAIL = 'autopatch/notification_after/email';
     private const AUTO = 'autopatch/settings/automatic';
     private const COMMNANDS = 'autopatch/commands';

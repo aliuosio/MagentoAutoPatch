@@ -94,11 +94,15 @@ class UpdatePatches
      */
     private function setNotifiction(bool $runnerSuuccess): bool
     {
-        return $this->email->sendAfterPatch(
-            $runnerSuuccess,
-            $this->composer->getVersion(),
-            $this->helper->getNotifyAfterEmail()
-        );
+        if ($this->helper->notifyAfter()) {
+            return $this->email->sendAfterPatch(
+                $runnerSuuccess,
+                $this->composer->getVersion(),
+                $this->helper->getNotifyAfterEmail()
+            );
+        }
+
+        return false;
     }
 
     /**
