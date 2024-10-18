@@ -3,12 +3,13 @@
 The **Patch AutoUpdater** module for Magento 2 automates the process of checking and applying **minor patches (example: 2.4.6 - 2.4.6-p2)**. It integrates directly with Magento’s patch management system, reducing the need for manual intervention, ensuring your store remains secure and up-to-date.
 
 ## Features
-- **Automated Patch Lookup**: Automatically checks for the latest Magento patches.
+- **Automated Patch Lookup**: Automatically checks for the latest patches.
+- **Automated Patch Install**: Automatically applies the latest patches.
 - **For Adobe Commerce and Magento Open Source**
 - **Notifies you** before and after the update
 - **Custom CLI Command**: Use `bin/magento patch:update` to manually check and apply patches.
 - **Logging**: log errors `auto-patch.log`. This get sent on failure with the after patch notification
-- **Restricted Usage** for Users in Admin Group ony
+- **Restricted Usage** Access Control List for Backend Users depending on the User Group
 
 ### Installation
     composer require aliuosio/magento-autopatch
@@ -57,8 +58,8 @@ By using this module, you acknowledge that you are solely responsible for any ou
 * ~~Add backend Dialog and command implementation: notification per mail of available patch~~
 * ~~Add backend Dialog and command implementation: Patch automatically or not (comment cron has to bee set up to use)~~
 * ~~Add backend Dialog and command implementation: notification per mail of after auto-patch~~
+* ~~Add ACL~~
 * add auto-patch.log as Attachment to after patch mail
-* Add ACL
 
 
 #### Support
