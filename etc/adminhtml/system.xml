@@ -48,7 +48,7 @@
                 <field id="automatic" translate="label" type="select" sortOrder="30" showInDefault="1"
                        showInWebsite="1" showInStore="1">
                     <label>Update automatically</label>
-                    <comment>If enabled, the patch will be applied automatically.</comment>
+                    <comment>If enabled everyday at 11AM Server Time there is a new patch check and update on new version found</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
                 <field id="notify_after" translate="label" type="select" sortOrder="40" showInDefault="1"
@@ -73,6 +73,7 @@
                 <field id="email" translate="label" type="text" sortOrder="20" showInDefault="1"
                        showInWebsite="1" showInStore="1">
                     <label>E-Mail: </label>
+                    <comment>If enabled everyday at 11AM Server Time there is a new patch check and E-Mail sent on new version found</comment>
                     <validate>required-entry validate-email</validate>
                     <frontend_class>validate-email</frontend_class>
                 </field>
