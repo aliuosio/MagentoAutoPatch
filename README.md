@@ -23,13 +23,14 @@ The **Patch AutoUpdater** module for Magento 2 automates the process of checking
 ### Patch the System (manually check for new patch and install)
     bin/magento patch:update
 
-### Overview automated commands
-    composer require (--no-update)
-    composer update
-    bin/magento setup:upgrade
-    bin/magento cache:flush
+### Overview automated commands wrapped in this module
+* composer require --no-update
+* composer update
+* bin/magento setup:upgrade
+* bin/magento cache:flush
+* bin/magento deploy:mode:set production (only if magento was in production mode before)
 
-## Minor Requirements
+### Minor Requirements
 Before using the module, ensure your system meets the following requirements:
 1. **PHP**: Version 7.4 or higher.
 2. **Composer**: Version 2.1.6 or higher.
