@@ -43,12 +43,9 @@ class ProcessWrapper
     {
         if ($dryRun && $this->supportsDryRun($command)) {
             $dryRunProcess = $this->runDryRunCommand($command);
-
-            // Only proceed if the dry run was successful
-            if (!$dryRunProcess->isSuccessful()) {
-                return $dryRunProcess; // Return the failed dry run process
+                if (!$dryRunProcess->isSuccessful()) {
+                return $dryRunProcess;
             }
-            $this->logger->info("Dry run succeeded. Proceeding with actual command: $command");
         }
 
         return $this->runActualCommand($command);
@@ -63,15 +60,13 @@ class ProcessWrapper
     private function runDryRunCommand(string $command): Process
     {
         $dryRunCommand = $command . ' --dry-run';
-        $this->logger->info("Executing command in dry-run mode: $dryRunCommand");
-
         $process = $this->getProcess($dryRunCommand);
         $process->run();
 
         if (!$process->isSuccessful()) {
-            $this->logProcessError($process, 'Dry run failed');
+            $this->logProcessError($process, "{$dryRunCommand} Dry run failed");
         } else {
-            $this->logger->info("Dry run succeeded.");
+            $this->logger->info("{$dryRunCommand} Dry run succeeded.");
         }
 
         return $process;
