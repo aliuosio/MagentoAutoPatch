@@ -65,6 +65,8 @@ By using this module, you acknowledge that you are solely responsible for any ou
 * ~~Add backend Dialog and command implementation: notification per mail of after auto-patch~~
 * ~~Add ACL~~
 * ~~add auto-patch.log as Attachment to after patch mail~~
+* refactor system.xml to visualize dependants better
+* adjust acl.xml according to modifications made in previous todo
 
 
 #### Support
