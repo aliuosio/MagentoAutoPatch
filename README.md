@@ -11,6 +11,10 @@ The **Patch AutoUpdater** module for Magento 2 automates the process of checking
 - **Logging**: log errors `auto-patch.log`. This get sent on failure with the after patch notification
 - **Restricted Usage** Access Control List for Backend Users depending on the User Group
 
+### Support
+**If something goes wrong or you don't want to apply the patch yourself, feel free to send me an email at auto-patcher@proton.me**
+
+
 ### Installation
     composer require aliuosio/magento-autopatch
     bin/magento setup:upgrade
