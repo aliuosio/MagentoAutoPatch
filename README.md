@@ -70,6 +70,3 @@ Please Contribute by creating a fork of this repository.
 Follow the instructions here: https://help.github.com/articles/fork-a-repo/
 
 If i know you and yours skills i will add you as user to the repo. please create branches with your changes then to merge
-
-#### License
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://openng.de/source.org/licenses/MIT)
