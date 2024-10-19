@@ -40,7 +40,7 @@ class Handler extends StreamHandler
         File $fileDriver
     ) {
         $this->fileDriver = $fileDriver;
-        $this->resetLog($this->getMyStream());
+        // $this->resetLog($this->getMyStream());
 
         parent::__construct($this->getMyStream(), $this->loggerType);
     }
