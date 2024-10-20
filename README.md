@@ -14,7 +14,8 @@ The **Patch AutoUpdater** module for Magento 2 automates the process of checking
 ### Support
 **If something goes wrong or you don't want to apply the patch yourself, feel free to send me an [E-Mail](mailto:auto-patcher@proton.me?subject=HELP&body=ME)**
 
-
+> the cronjob checking for a new patch is scheduled everyday at 11 AM Server Time
+> To change this i advice i stalling a cron job manager like https://github.com/Ethan3600/magento2-CronjobManager
 
 ### Installation
     composer require aliuosio/magento-autopatch
