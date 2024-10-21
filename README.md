@@ -26,7 +26,9 @@ The **Patch AutoUpdater** module for Magento 2 automates the process of checking
     bin/magento patch:update
 
 ### Overview automated commands wrapped in this module
+* composer require --no-update --dry-run
 * composer require --no-update
+* composer update --dry-run
 * composer update
 * bin/magento setup:upgrade
 * bin/magento cache:flush
