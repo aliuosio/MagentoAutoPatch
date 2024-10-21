@@ -11,9 +11,6 @@ The **Patch AutoUpdater** module for Magento 2 automates the process of checking
 - **Logging**: log errors `auto-patch.log`. This get sent on failure with the after patch notification
 - **Restricted Usage** Access Control List for Backend Users depending on the User Group
 
-### Support
-**If something goes wrong or you don't want to apply the patch yourself, feel free to send me an [E-Mail](mailto:auto-patcher@proton.me?subject=HELP&body=ME)**
-
 > the cronjob checking for a new patch is scheduled everyday at 11 AM Server Time
 > To change this i advice i stalling a cron job manager like https://github.com/Ethan3600/magento2-CronjobManager
 
@@ -68,10 +65,6 @@ By using this module, you acknowledge that you are solely responsible for any ou
 * ~~add auto-patch.log as Attachment to after patch mail~~
 * refactor system.xml to visualize dependants better
 * adjust acl.xml according to modifications made in previous todo
-
-
-#### Support
-If you encounter any problems or bugs, please create an issue on [GitHub](https://github.com/aliuosio/MagentoAutoPatch/issues).
 
 #### Contribute
 Please Contribute by creating a fork of this repository.  
