@@ -32,7 +32,8 @@ The **Patch AutoUpdater** module for Magento 2 automates the process of checking
 * composer update
 * bin/magento setup:upgrade
 * bin/magento cache:flush
-* bin/magento deploy:mode:set production (only if magento was in production mode before)
+* bin/magento deploy:mode:set production 
+> bin/magento deploy:mode:set production runs only if magento was in production mode before
 
 ### Minor Requirements
 Before using the module, ensure your system meets the following requirements:
@@ -65,8 +66,7 @@ By using this module, you acknowledge that you are solely responsible for any ou
 * ~~Add backend Dialog and command implementation: notification per mail of after auto-patch~~
 * ~~Add ACL~~
 * ~~add auto-patch.log as Attachment to after patch mail~~
-* refactor system.xml to visualize dependants better
-* adjust acl.xml according to modifications made in previous todo
+* catch exceptions to log
 
 #### Contribute
 Please Contribute by creating a fork of this repository.  
