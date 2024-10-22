@@ -26,7 +26,7 @@ The **Patch AutoUpdater** module for Magento 2 automates the process of checking
 <img src="backend-config.png" alt="Alt text" width="800"/>
 
 ### Patch the System (manually check for new patch and install)
-    bin/magento patch:update
+    php -d memory_limit=-1 bin/magento patch:update
 
 ### Overview automated commands wrapped in this module
 * composer require --no-update --dry-run
