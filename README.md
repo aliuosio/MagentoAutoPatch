@@ -15,8 +15,11 @@ The **Patch AutoUpdater** module for Magento 2 automates the process of checking
 > To change this i advice i stalling a cron job manager like https://github.com/Ethan3600/magento2-CronjobManager
 
 ### Installation
-    composer require aliuosio/magento-autopatch
+    # in magento root
+    mkdir -p app/code/Osio/MagentoAutoPatch
+    git clone git@bitbucket.org:osio/magentoautopatch.git app/code/Osio/MagentoAutoPatch
     bin/magento setup:upgrade
+    bin/magento cache:flush
 
 ### Enable the Module (automates check for new patch and install)
     stores -> configuration -> Osio -> Auto Patcher -> enable
