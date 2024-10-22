@@ -69,7 +69,6 @@ By using this module, you acknowledge that you are solely responsible for any ou
 * ~~Add backend Dialog and command implementation: notification per mail of after auto-patch~~
 * ~~Add ACL~~
 * ~~add auto-patch.log as Attachment to after patch mail~~
-* catch exceptions to log
 
 #### Contribute
 Please Contribute by creating a fork of this repository.  
