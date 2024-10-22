@@ -43,7 +43,7 @@ class ProcessWrapper
     {
         if ($dryRun && $this->supportsDryRun($command)) {
             $dryRunProcess = $this->runDryRunCommand($command);
-                if (!$dryRunProcess->isSuccessful()) {
+            if (!$dryRunProcess->isSuccessful()) {
                 return $dryRunProcess;
             }
         }
@@ -54,7 +54,7 @@ class ProcessWrapper
     /**
      * Run a command in dry-run mode
      *
-     * @param string $command
+     * @param  string $command
      * @return Process
      */
     private function runDryRunCommand(string $command): Process
@@ -75,7 +75,7 @@ class ProcessWrapper
     /**
      * Run the actual command
      *
-     * @param string $command
+     * @param  string $command
      * @return Process
      */
     private function runActualCommand(string $command): Process
@@ -99,7 +99,7 @@ class ProcessWrapper
      * Log error message from a failed process
      *
      * @param Process $process
-     * @param string $context
+     * @param string  $context
      */
     private function logProcessError(Process $process, string $context): void
     {
@@ -110,7 +110,7 @@ class ProcessWrapper
     /**
      * Log exception details during command execution
      *
-     * @param Process $process
+     * @param Process   $process
      * @param Throwable $e
      */
     private function logProcessException(Process $process, Throwable $e): void
@@ -125,7 +125,7 @@ class ProcessWrapper
     /**
      * Check if a command supports dry-run option
      *
-     * @param string $command
+     * @param  string $command
      * @return bool
      */
     private function supportsDryRun(string $command): bool
