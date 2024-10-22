@@ -40,9 +40,10 @@ The **Patch AutoUpdater** module for Magento 2 automates the process of checking
 
 ### Minor Requirements
 Before using the module, ensure your system meets the following requirements:
-1. **PHP**: Version 7.4 or higher.
-2. **Composer**: Version 2.1.6 or higher.
-3. **Magento**: Version 2.4.0 or higher.
+
+* **PHP**: Version 7.4 or higher.
+* **Composer**: Version 2.1.6 or higher.
+* **Magento**: Version 2.4.0 or higher.
 
 ### Disclaimer
 
