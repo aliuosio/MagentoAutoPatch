@@ -15,18 +15,15 @@ The **Patch AutoUpdater** module for Magento 2 automates the process of checking
 > To change this i advice i stalling a cron job manager like https://github.com/Ethan3600/magento2-CronjobManager
 
 ### Installation
-    # in magento root
-    mkdir -p app/code/Osio/MagentoAutoPatch
-    git clone git@bitbucket.org:osio/magentoautopatch.git app/code/Osio/MagentoAutoPatch
+    composer require aliuosio/magento-autopatch
     bin/magento setup:upgrade
-    bin/magento cache:flush
 
 ### Enable the Module (automates check for new patch and install)
     stores -> configuration -> Osio -> Auto Patcher -> enable
 <img src="backend-config.png" alt="Alt text" width="800"/>
 
 ### Patch the System (manually check for new patch and install)
-    COMPOSER_PROCESS_TIMEOUT=2000 && php -d memory_limit=-1 bin/magento patch:update
+    php -d memory_limit=-1 bin/magento patch:update
 
 ### Overview automated commands wrapped in this module
 * composer require --no-update --dry-run
