@@ -11,8 +11,9 @@ The **Patch AutoUpdater** module for Magento 2 automates the process of checking
 - **Logging**: log errors `auto-patch.log`. This get sent on failure with the after patch notification
 - **Restricted Usage** Access Control List for Backend Users depending on the User Group
 
-> the cronjob checking for a new patch is scheduled everyday at 11 AM Server Time
-> To change this i advice i stalling a cron job manager like https://github.com/Ethan3600/magento2-CronjobManager
+### Support
+**If something goes wrong or you don't want to apply a patch yourself, 
+feel free to send me an [E-Mail](mailto:auto-patcher@proton.me?subject=HELP&body=ME)**
 
 ### Installation
     composer require aliuosio/magento-autopatch
@@ -34,6 +35,9 @@ The **Patch AutoUpdater** module for Magento 2 automates the process of checking
 * bin/magento cache:flush
 * bin/magento deploy:mode:set production 
 > bin/magento deploy:mode:set production runs only if magento was in production mode before
+
+> the cronjob checking for a new patch is scheduled everyday at 11 AM Server Time
+> To change this i advice i stalling a cron job manager like https://github.com/Ethan3600/magento2-CronjobManager
 
 ### Minor Requirements
 Before using the module, ensure your system meets the following requirements:
