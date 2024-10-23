@@ -13,7 +13,7 @@ The **Patch AutoUpdater** module for Magento 2 automates the process of checking
 
 ### Support
 **If something goes wrong or you don't want to apply a patch yourself, 
-feel free to send me an [E-Mail](mailto:auto-patcher@proton.me?subject=Magento Auto Patch Suppor)**
+feel free to send me an [E-Mail](mailto:auto-patcher@proton.me?subject=Magento Auto Patch Support)**
 
 ### Installation
     composer require aliuosio/magento-autopatch
