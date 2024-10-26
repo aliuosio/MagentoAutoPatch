@@ -1,6 +1,6 @@
 # Magento Auto Patch
 
-The **Patch AutoUpdater** module for Magento 2 automates the process of checking and applying **minor patches (example: 2.4.6 - 2.4.6-p2)**. It integrates directly with Magento’s patch management system, reducing the need for manual intervention, ensuring your store remains secure and up-to-date.
+The **MagentoAutoPatch** module for Magento 2 automates the process of checking and applying **minor patches (example: 2.4.6 - 2.4.6-p2)**. It integrates directly with Magento’s patch management system, reducing the need for manual intervention, ensuring your store remains secure and up-to-date.
 
 ## Features
 - **Automated Patch Lookup**: Automatically checks for the latest patches and notifies you per E-Mail
