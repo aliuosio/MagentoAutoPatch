@@ -10,7 +10,6 @@
 
 namespace Osio\MagentoAutoPatch\Console;
 
-use Magento\Framework\Exception\FileSystemException;
 use Osio\MagentoAutoPatch\Helper\Data;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -75,7 +74,6 @@ class UpdatePatches extends Command
      * @param  InputInterface  $input
      * @param  OutputInterface $output
      * @return int
-     * @throws FileSystemException
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -94,7 +92,6 @@ class UpdatePatches extends Command
      * @param  InputInterface  $input
      * @param  OutputInterface $output
      * @return void
-     * @throws FileSystemException
      */
     private function runner(InputInterface $input, OutputInterface $output): void
     {

@@ -13,8 +13,6 @@ namespace Osio\MagentoAutoPatch\Model\Logger;
 use Monolog\Handler\StreamHandler;
 use Magento\Framework\Filesystem\Driver\File;
 use Monolog\Logger as MonologLogger;
-use RuntimeException;
-use Throwable;
 
 class Handler extends StreamHandler
 {
@@ -40,7 +38,6 @@ class Handler extends StreamHandler
         File $fileDriver
     ) {
         $this->fileDriver = $fileDriver;
-        // $this->resetLog($this->getMyStream());
 
         parent::__construct($this->getMyStream(), $this->loggerType);
     }
@@ -53,23 +50,5 @@ class Handler extends StreamHandler
     private function getMyStream(): string
     {
         return BP . $this->fileName;
-    }
-
-    /**
-     * Reset the log file using Magento's file handling.
-     *
-     * @param  string $stream
-     * @return void
-     */
-    protected function resetLog(string $stream): void
-    {
-        try {
-            if ($this->fileDriver->isExists($stream)) {
-                $this->fileDriver->filePutContents($stream, '');
-            }
-        } catch (Throwable $e) {
-            $message = 'Command execution error: ' . $e->getTraceAsString() . ' | Exception: ' . $e->getMessage();
-            throw new RuntimeException($message, $e->getCode(), $e);
-        }
     }
 }

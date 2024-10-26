@@ -160,11 +160,14 @@ class TransportBuilder extends TransportBuilderAlias
      * @param  array|string $address
      * @param  string       $name
      * @return $this
-     * @throws InvalidArgumentException
      */
     public function addTo($address, $name = ''): TransportBuilder
     {
-        $this->addAddressByType('to', $address, $name);
+        try {
+            $this->addAddressByType('to', $address, $name);
+        } catch (InvalidArgumentException $e) {
+            $this->logger->critical($e->getMessage(), ['code' => $e->getCode()]);
+        }
 
         return $this;
     }
@@ -174,11 +177,14 @@ class TransportBuilder extends TransportBuilderAlias
      *
      * @param  array|string $address
      * @return $this
-     * @throws InvalidArgumentException
      */
     public function addBcc($address): TransportBuilder
     {
-        $this->addAddressByType('bcc', $address);
+        try {
+            $this->addAddressByType('bcc', $address);
+        } catch (InvalidArgumentException $e) {
+            $this->logger->critical($e->getMessage(), ['code' => $e->getCode()]);
+        }
 
         return $this;
     }
@@ -189,11 +195,15 @@ class TransportBuilder extends TransportBuilderAlias
      * @param  string      $email
      * @param  string|null $name
      * @return $this
-     * @throws InvalidArgumentException
      */
     public function setReplyTo($email, $name = null): TransportBuilder
     {
-        $this->addAddressByType('replyTo', $email, $name);
+        try {
+
+            $this->addAddressByType('replyTo', $email, $name);
+        } catch (InvalidArgumentException $e) {
+            $this->logger->critical($e->getMessage(), ['code' => $e->getCode()]);
+        }
 
         return $this;
     }
@@ -202,15 +212,19 @@ class TransportBuilder extends TransportBuilderAlias
      * Set mail from address
      *
      * @param      string|array $from
-     * @return     $this
-     * @throws     InvalidArgumentException|MailException
+     * @return     $this|null
      * @see        setFromByScope()
      * @deprecated 102.0.1 This function sets the from address but does not provide
      * a way of setting the correct from addresses based on the scope.
      */
-    public function setFrom($from): TransportBuilder
+    public function setFrom($from): ?TransportBuilder
     {
-        return $this->setFromByScope($from);
+        try {
+            return $this->setFromByScope($from);
+        } catch (InvalidArgumentException $e) {
+            $this->logger->critical($e->getMessage(), ['code' => $e->getCode()]);
+            return null;
+        }
     }
 
     /**
@@ -219,15 +233,16 @@ class TransportBuilder extends TransportBuilderAlias
      * @param  string|array $from
      * @param  string|int   $scopeId
      * @return $this
-     * @throws InvalidArgumentException
-     * @throws MailException
      * @since  102.0.1
      */
     public function setFromByScope($from, $scopeId = null): TransportBuilder
     {
-        $result = $this->_senderResolver->resolve($from, $scopeId);
-        $this->addAddressByType('from', $result['email'], $result['name']);
-
+        try {
+            $result = $this->_senderResolver->resolve($from, $scopeId);
+            $this->addAddressByType('from', $result['email'], $result['name']);
+        } catch (InvalidArgumentException|MailException $e) {
+            $this->logger->critical($e->getMessage(), ['code' => $e->getCode()]);
+        }
         return $this;
     }
 
@@ -376,17 +391,21 @@ class TransportBuilder extends TransportBuilderAlias
      * @param  string|array $email
      * @param  string|null  $name
      * @return void
-     * @throws InvalidArgumentException
      */
     private function addAddressByType(string $addressType, $email, ?string $name = null): void
     {
-        if (is_string($email)) {
-            $this->messageData[$addressType][] = $this->addressConverter->convert($email, $name);
-            return;
+        try {
+            if (is_string($email)) {
+                $this->messageData[$addressType][] = $this->addressConverter->convert($email, $name);
+            }
+            $convertedAddressArray = $this->addressConverter->convertMany([$email]);
+            $this->messageData[$addressType] = array_merge(
+                $this->messageData[$addressType] ?? [],
+                $convertedAddressArray
+            );
+        } catch (InvalidArgumentException $e) {
+            $this->logger->critical($e->getMessage(), ['code' => $e->getCode()]);
         }
-
-        $convertedAddressArray = $this->addressConverter->convertMany($email);
-        $this->messageData[$addressType] = array_merge($this->messageData[$addressType] ?? [], $convertedAddressArray);
     }
 
     /**

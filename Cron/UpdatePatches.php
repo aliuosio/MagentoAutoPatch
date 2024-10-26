@@ -10,7 +10,6 @@
 
 namespace Osio\MagentoAutoPatch\Cron;
 
-use Magento\Framework\Exception\FileSystemException;
 use Osio\MagentoAutoPatch\Helper\Data;
 use Osio\MagentoAutoPatch\Model\Composer;
 use Osio\MagentoAutoPatch\Model\Logger\Log;
@@ -69,7 +68,6 @@ class UpdatePatches
      * Execute
      *
      * @return void
-     * @throws FileSystemException
      */
     public function execute()
     {
@@ -90,7 +88,6 @@ class UpdatePatches
      *
      * @param  bool $runnerSuuccess
      * @return bool
-     * @throws FileSystemException
      */
     private function setNotifiction(bool $runnerSuuccess): bool
     {
@@ -109,7 +106,6 @@ class UpdatePatches
      * Runnner
      *
      * @return bool
-     * @throws FileSystemException
      */
     private function runner(): bool
     {

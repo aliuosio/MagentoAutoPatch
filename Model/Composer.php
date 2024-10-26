@@ -14,20 +14,20 @@ use Magento\Framework\Exception\FileSystemException;
 use Magento\Framework\Filesystem\DirectoryList;
 use Magento\Framework\Filesystem\Driver\File;
 use Magento\Framework\Serialize\Serializer\Json;
+use Osio\MagentoAutoPatch\Model\Logger\Log;
 use Symfony\Component\Process\Process;
 
 class Composer
 {
-
     /**
      * @var DirectoryList
      */
     private DirectoryList $directoryList;
 
     /**
-     * @var array
+     * @var array|null
      */
-    private array $composerJson;
+    private ?array $composerJson = null;
 
     /**
      * @var Json
@@ -45,32 +45,62 @@ class Composer
     private ProcessWrapper $processWrapper;
 
     /**
+     * @var string|null
+     */
+    private ?string $composerPath = null;
+
+    /**
+     * @var Process|null
+     */
+    private ?Process $outdated = null;
+
+    /**
+     * @var string|null
+     */
+    private ?string $package = null;
+
+    /**
+     * @var Process|null
+     */
+    private ?Process $latestVersionProcess = null;
+
+    /**
+     * @var Log
+     */
+    private Log $logger;
+
+    /**
      * @param ProcessWrapper $processWrapper
-     * @param DirectoryList $directoryList
-     * @param Json $json
-     * @param File $file
+     * @param DirectoryList  $directoryList
+     * @param Json           $json
+     * @param File           $file
+     * @param Log            $logger
      */
     public function __construct(
         ProcessWrapper $processWrapper,
         DirectoryList  $directoryList,
         Json           $json,
-        File           $file
-    )
-    {
+        File           $file,
+        Log            $logger
+    ) {
         $this->directoryList = $directoryList;
         $this->json = $json;
         $this->file = $file;
         $this->processWrapper = $processWrapper;
+        $this->logger = $logger;
     }
 
     /**
      * Get Composer Path
      *
-     * @return string
+     * @return string|null
      */
-    public function getComposerPath(): string
+    public function getComposerPath(): ?string
     {
-        return "{$this->directoryList->getRoot()}/composer.json";
+        if ($this->composerPath === null) {
+            $this->composerPath = "{$this->directoryList->getRoot()}/composer.json";
+        }
+        return $this->composerPath; // Added return statement
     }
 
     /**
@@ -80,67 +110,108 @@ class Composer
      */
     public function hasVersions(): Process
     {
-        return $this->processWrapper->runCommand("composer show --outdated {$this->whichMagento()} --all -n");
+        if ($this->outdated !== null) {
+            return $this->outdated;
+        }
+
+        $this->outdated = $this->processWrapper
+            ->runCommand("composer show --outdated {$this->whichMagento()} --all -n");
+
+        return $this->outdated; // Added return statement
     }
 
     /**
-     * Check if cloud or community Magento version
+     * Determines the Magento package type (Cloud or Community)
      *
      * @return string|null
      */
     public function whichMagento(): ?string
     {
+        if ($this->package !== null) {
+            return $this->package;
+        }
+
         $magentoPackages = [
             'magento/magento-cloud-metapackage',
             'magento/product-community-edition'
         ];
 
         foreach ($magentoPackages as $package) {
-            if (array_key_exists($package, $this->composerJson['require'])) {
-                return $package;
+            if (isset($this->composerJson['require'][$package])) {
+                $this->package = $package;
+                break;
             }
         }
 
-        return null;
+        return $this->package;
     }
 
     /**
-     * Get Module Version
+     * Retrieve the Magento Module Version
      *
      * @return string
-     * @throws FileSystemException
      */
     public function getVersion(): string
     {
-        if ($this->file->isExists($this->getComposerPath())) {
-            $this->composerJson = $this->json->unserialize(
-                $this->file->fileGetContents($this->getComposerPath())
-            );
+        try {
+            if ($this->file->isExists($this->getComposerPath())) {
+                $this->composerJson = $this->json->unserialize(
+                    $this->file->fileGetContents($this->getComposerPath())
+                );
+                return $this->getMagentoVersionFromJson();
+            }
+        } catch (FileSystemException $e) {
+            $this->logger->critical($e, ['code' => $e->getCode()]);
         }
 
-        return $this->composerJson['require'][$this->whichMagento()] ?? 'Unknown';
+        return 'unknown';
     }
 
     /**
-     * Download latets version
+     * Extract the Magento version from the composer JSON data
+     *
+     * @return string
+     */
+    private function getMagentoVersionFromJson(): string
+    {
+        return $this->composerJson['require'][$this->whichMagento()] ?? 'unknown';
+    }
+
+    /**
+     * Download the latest version of the module.
      *
      * @return Process
-     * @throws FileSystemException
      */
     public function downloadLatestVersion(): Process
     {
-        $result = $this->processWrapper
-            ->runCommand("composer require-commerce {$this->whichMagento()}:{$this->getLatest()} -n --no-update");
-        if (!$result->isSuccessful()) {
-            $result = $this->processWrapper
-                ->runCommand("composer require {$this->whichMagento()}:{$this->getLatest()} -n --no-update");
+        if ($this->latestVersionProcess !== null) {
+            return $this->latestVersionProcess;
         }
 
-        return $result;
+        $this->latestVersionProcess = $this->executeDownloadCommand("composer require-commerce");
+
+        if (!$this->latestVersionProcess->isSuccessful()) {
+            $this->latestVersionProcess = $this->executeDownloadCommand("composer require");
+        }
+
+        return $this->latestVersionProcess;
     }
 
     /**
-     * Update
+     * Execute the download command with the specified base command.
+     *
+     * @param  string $baseCommand
+     * @return Process|null
+     */
+    private function executeDownloadCommand(string $baseCommand): ?Process
+    {
+        return $this->processWrapper->runCommand(
+            "$baseCommand {$this->whichMagento()}:{$this->getLatest()} -n --no-update"
+        );
+    }
+
+    /**
+     * Update the installed packages
      *
      * @return Process
      */
@@ -153,7 +224,6 @@ class Composer
      * Get latest minor patch version
      *
      * @return string|null
-     * @throws FileSystemException
      */
     public function getLatest(): ?string
     {
@@ -176,15 +246,15 @@ class Composer
     }
 
     /**
-     *  Extracts the base version (major.minor.patch) from the current version.
+     * Extracts the base version (major.minor.patch) from the current version.
      *
-     * @param string $currentVersion
+     * @param  string $currentVersion
      * @return string
      */
     private function extractBaseVersion(string $currentVersion): string
     {
         $versionParts = explode('-', $currentVersion);
-        return $versionParts[0]; // Return base version like '2.4.6'
+        return $versionParts[0];
     }
 
     /**
@@ -195,44 +265,41 @@ class Composer
     private function fetchOutdatedVersions(): array
     {
         preg_match_all('/\d+\.\d+\.\d+-p\d+/m', $this->hasVersions()->getOutput(), $matches);
-
         return $matches[0] ?? [];
     }
 
     /**
      * Filters available versions to match the current major.minor.patch version.
      *
-     * @param array $availableVersions
-     * @param string $baseVersion
+     * @param  array  $availableVersions
+     * @param  string $baseVersion
      * @return array
      */
     private function filterVersions(array $availableVersions, string $baseVersion): array
     {
         return array_filter(
             $availableVersions,
-            function ($version) use ($baseVersion) {
-                return preg_match("/^$baseVersion-p\d+$/", $version);
-            }
+            fn($version) => preg_match("/^$baseVersion-p\d+$/", $version)
         );
     }
 
     /**
      * Sorts the filtered versions and returns the latest patch version.
      *
-     * @param array $filteredVersions
+     * @param  array $filteredVersions
      * @return string
      */
     private function getLatestPatchVersion(array $filteredVersions): string
     {
         usort($filteredVersions, 'version_compare');
-        return end($filteredVersions); // Get the highest patch version
+        return end($filteredVersions);
     }
 
     /**
      * Compares the current version with the latest patch version.
      *
-     * @param string $currentVersion
-     * @param string $latestPatch
+     * @param  string $currentVersion
+     * @param  string $latestPatch
      * @return bool
      */
     private function isNewerVersion(string $currentVersion, string $latestPatch): bool

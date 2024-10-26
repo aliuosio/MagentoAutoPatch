@@ -10,7 +10,6 @@
 
 namespace Osio\MagentoAutoPatch\Cron;
 
-use Magento\Framework\Exception\FileSystemException;
 use Osio\MagentoAutoPatch\Helper\Data;
 use Osio\MagentoAutoPatch\Model\Composer;
 use Osio\MagentoAutoPatch\Model\Logger\Log;
@@ -48,7 +47,7 @@ class NewPatchNotification
         Log      $logger,
         Data     $helper,
         Email    $email,
-        Composer $composer,
+        Composer $composer
     ) {
         $this->logger = $logger;
         $this->helper = $helper;
@@ -60,7 +59,6 @@ class NewPatchNotification
      * Execute
      *
      * @return void
-     * @throws FileSystemException
      */
     public function execute()
     {
@@ -78,7 +76,6 @@ class NewPatchNotification
      * Set Notifiction
      *
      * @return bool
-     * @throws FileSystemException
      */
     private function setNotifiction(): bool
     {

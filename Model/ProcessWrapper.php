@@ -37,15 +37,18 @@ class ProcessWrapper
      * @param  string $command
      * @param  bool   $dryRun
      * @return Process
-     * @throws RuntimeException
      */
     public function runCommand(string $command, bool $dryRun = true): Process
     {
-        if ($dryRun && $this->supportsDryRun($command)) {
-            $dryRunProcess = $this->runDryRunCommand($command);
-            if (!$dryRunProcess->isSuccessful()) {
-                return $dryRunProcess;
+        try {
+            if ($dryRun && $this->supportsDryRun($command)) {
+                $dryRunProcess = $this->runDryRunCommand($command);
+                if (!$dryRunProcess->isSuccessful()) {
+                    return $dryRunProcess;
+                }
             }
+        } catch (RuntimeException $e) {
+            $this->logger->critical($e->getMessage(), ['code' => $e->getCode()]);
         }
 
         return $this->runActualCommand($command);
@@ -64,9 +67,9 @@ class ProcessWrapper
         $process->run();
 
         if (!$process->isSuccessful()) {
-            $this->logProcessError($process, "{$dryRunCommand} Dry run failed");
+            $this->logProcessError($process, "$dryRunCommand Dry run failed");
         } else {
-            $this->logger->info("{$dryRunCommand} Dry run succeeded.");
+            $this->logger->info("$dryRunCommand Dry run succeeded.");
         }
 
         return $process;
@@ -119,7 +122,7 @@ class ProcessWrapper
             . $process->getErrorOutput()
             . ' | Exception: '
             . $e->getTraceAsString();
-        $this->logger->error($message);
+        $this->logger->critical($message, ['code' => $e->getCode()]);
     }
 
     /**
