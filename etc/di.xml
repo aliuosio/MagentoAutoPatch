@@ -35,4 +35,8 @@
             </argument>
         </arguments>
     </type>
+
+    <!-- di for Magento\Framework\Mail\Template\TransportBuilder -->
+    <preference for="Magento\Framework\Mail\Template\TransportBuilder"
+                type="Osio\MagentoAutoPatch\Model\Notifier\TransportBuilder"/>
 </config>

@@ -349,10 +349,10 @@ class TransportBuilder extends TransportBuilderAlias
     private function getTemplateType(TemplateInterface $template): ?string
     {
         switch ($template->getType()) {
-        case TemplateTypesInterface::TYPE_TEXT:
-            return MimeInterface::TYPE_TEXT;
-        case TemplateTypesInterface::TYPE_HTML:
-            return MimeInterface::TYPE_HTML;
+            case TemplateTypesInterface::TYPE_TEXT:
+                return MimeInterface::TYPE_TEXT;
+            case TemplateTypesInterface::TYPE_HTML:
+                return MimeInterface::TYPE_HTML;
         }
 
         $this->logger->error('Unknown template type: ' . $template->getType());
