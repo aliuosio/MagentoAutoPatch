@@ -10,12 +10,13 @@
 
 namespace Osio\MagentoAutoPatch\Model\Notifier;
 
+use Magento\Framework\App\Area;
 use Magento\Framework\Exception\FileSystemException;
 use Magento\Framework\Exception\MailException;
-use Magento\Framework\App\Area;
-use Osio\MagentoAutoPatch\Model\Logger\Log;
-use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 use Magento\Framework\Filesystem\Driver\File;
+use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
+use Osio\MagentoAutoPatch\Model\Logger\Log;
+use Osio\MaillWithAttachment\Model\TransportBuilder;
 
 class Email
 {
