@@ -12,11 +12,12 @@ namespace Osio\MagentoAutoPatch\Model\Notifier;
 
 use Magento\Framework\App\Area;
 use Magento\Framework\Exception\FileSystemException;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\MailException;
 use Magento\Framework\Filesystem\Driver\File;
 use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 use Osio\MagentoAutoPatch\Model\Logger\Log;
-use Osio\MaillWithAttachment\Model\TransportBuilder;
+use Magento\Framework\Mail\Template\TransportBuilder;
 
 class Email
 {
@@ -106,10 +107,11 @@ class Email
             $transport = $this->prepareTransport($templateId, $templateVars, $recipientEmail);
             $this->addAttachmentIfNecessary($transport, $templateId);
             $transport->getTransport()->sendMessage();
-        } catch (MailException $e) {
+        } catch (MailException|LocalizedException $e) {
             $this->logger->error("Error sending email: {$e->getMessage()}");
             return false;
         }
+
         return true;
     }
 
@@ -126,12 +128,17 @@ class Email
         array   $templateVars,
         ?string $recipientEmail
     ): ?TransportBuilder {
-        return $this->transportBuilder
-            ->setTemplateIdentifier($templateId)
-            ->setTemplateOptions($this->getAreaAndStoreVars())
-            ->setTemplateVars($templateVars)
-            ->setFromByScope('general')
-            ->addTo($recipientEmail);
+        try {
+            return $this->transportBuilder
+                ->setTemplateIdentifier($templateId)
+                ->setTemplateOptions($this->getAreaAndStoreVars())
+                ->setTemplateVars($templateVars)
+                ->setFromByScope('general')
+                ->addTo($recipientEmail);
+        } catch (MailException $e) {
+            $this->logger->error("Error preparing email transport: {$e->getMessage()}");
+            return null;
+        }
     }
 
     /**
