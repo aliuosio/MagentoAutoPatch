@@ -12,7 +12,7 @@
     "minimum-stability": "dev",
     "require": {
         "php": "^7.4 || ^8.1",
-        "osio/module-maillwithattachment": "^0.1.0"
+        "osio/module-maillwithattachment": "^0.2.1"
     },
     "autoload": {
         "files": [
