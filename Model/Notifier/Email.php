@@ -81,15 +81,20 @@ class Email
      * Send E-Mail after patch
      *
      * @param  bool        $isRunnerSuccess
-     * @param  string      $version
+     * @param  string      $previous_version
+     * @param  string      $new_version
      * @param  string|null $notificationEmail
      * @return bool
      */
-    public function sendAfterPatch(bool $isRunnerSuccess, string $version, ?string $notificationEmail): bool
-    {
+    public function sendAfterPatch(
+        bool    $isRunnerSuccess,
+        string  $previous_version,
+        string  $new_version,
+        ?string $notificationEmail
+    ): bool {
         return $this->sendEmail(
             $this->getAfterPatchTemplate($isRunnerSuccess),
-            $this->getSuccessVars($version),
+            $this->getSuccessVars($previous_version, $new_version),
             $notificationEmail
         );
     }
@@ -193,13 +198,15 @@ class Email
     /**
      * Get Variables
      *
-     * @param  string $version
+     * @param  string $previous_version
+     * @param  string $new_version
      * @return array
      */
-    private function getSuccessVars(string $version): array
+    private function getSuccessVars(string $previous_version, string $new_version): array
     {
         return [
-            'version' => $version,
+            'previous_version' => $previous_version,
+            'new_version' => $new_version,
             'update_time' => $this->timezone->date()->format('Y-m-d H:i:s')
         ];
     }

@@ -94,6 +94,7 @@ class UpdatePatches
         if ($this->helper->notifyAfter()) {
             return $this->email->sendAfterPatch(
                 $runnerSuuccess,
+                $this->helper->getData('previuos_version'),
                 $this->composer->getVersion(),
                 $this->helper->getNotifyAfterEmail()
             );
@@ -112,7 +113,7 @@ class UpdatePatches
         if ($this->composer->getLatest() === null) {
             return false;
         }
-
+        $this->helper->setData('previuos_version', $this->composer->getVersion());
         foreach ($this->helper->resetCommands($this->magento->getDeployMode()) as $method => $messages) {
             if (!$this->processCommands($method)) {
                 $this->logger->error($messages['errorMessage']);

@@ -16,6 +16,7 @@ use Magento\Framework\App\Helper\AbstractHelper;
 class Data extends AbstractHelper
 {
 
+    private array $data = [];
     private const ENABLED = 'autopatch/general/enabled';
     private const NOTIFY_BEFORE = 'autopatch/settings/notify_before';
     private const NOTIFY_BEFORE_EMAIL = 'autopatch/notification_before/email';
@@ -35,6 +36,28 @@ class Data extends AbstractHelper
     private const ERROR = 'autopatch/error';
     private const PROD_MESG = 'autopatch/production_mode_mesg';
     private const NOT_ENABLED_MESG = 'autopatch/not_enabled_mesg';
+
+    /**
+     * Set data
+     *
+     * @param string $key
+     * @param mixed  $value
+     */
+    public function setData(string $key, $value): void
+    {
+        $this->data[$key] = $value;
+    }
+
+    /**
+     * Get data
+     *
+     * @param  string $key
+     * @return mixed|null
+     */
+    public function getData(string $key)
+    {
+        return $this->data[$key] ?? null;
+    }
 
     /**
      * Check if module enabled
