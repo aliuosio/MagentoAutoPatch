@@ -16,7 +16,7 @@ The **MagentoAutoPatch** module for Magento 2 automates the process of checking 
 feel free to send me an [E-Mail](mailto:auto-patcher@proton.me)**
 
 ### Installation
-    composer require aliuosio/magento-autopatch
+    composer require osio/magento-autopatch
     bin/magento setup:upgrade
 
 ### Enable the Module (automates check for new patch and install)
