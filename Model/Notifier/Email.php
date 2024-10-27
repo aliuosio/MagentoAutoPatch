@@ -61,6 +61,23 @@ class Email
     }
 
     /**
+     * Send New Patch Info
+     *
+     * @param  string|null $current_version
+     * @param  string|null $new_version
+     * @param  string|null $notificationEmail
+     * @return bool
+     */
+    public function sendNewPatchInfo(?string $current_version, ?string $new_version, ?string $notificationEmail): bool
+    {
+        return $this->sendEmail(
+            'patch_new',
+            ['current_version' => $current_version, 'new_version' => $new_version],
+            $notificationEmail
+        );
+    }
+
+    /**
      * Send E-Mail after patch
      *
      * @param  bool        $isRunnerSuccess
@@ -73,22 +90,6 @@ class Email
         return $this->sendEmail(
             $this->getAfterPatchTemplate($isRunnerSuccess),
             $this->getSuccessVars($version),
-            $notificationEmail
-        );
-    }
-
-    /**
-     * Send New Patch Info
-     *
-     * @param  string|null $latestVersion
-     * @param  string|null $notificationEmail
-     * @return bool
-     */
-    public function sendNewPatchInfo(?string $latestVersion, ?string $notificationEmail): bool
-    {
-        return $this->sendEmail(
-            'patch_new',
-            ['version' => $latestVersion],
             $notificationEmail
         );
     }

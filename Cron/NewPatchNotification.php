@@ -80,6 +80,7 @@ class NewPatchNotification
     private function setNotifiction(): bool
     {
         return $this->email->sendNewPatchInfo(
+            $this->composer->getVersion(),
             $this->composer->getLatest(),
             $this->helper->getNotifyBeforeEmail()
         );
