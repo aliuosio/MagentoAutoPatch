@@ -16,7 +16,11 @@ use Magento\Framework\App\Helper\AbstractHelper;
 class Data extends AbstractHelper
 {
 
+    /**
+     * @var array  $data
+     */
     private array $data = [];
+
     private const ENABLED = 'autopatch/general/enabled';
     private const NOTIFY_BEFORE = 'autopatch/settings/notify_before';
     private const NOTIFY_BEFORE_EMAIL = 'autopatch/notification_before/email';
