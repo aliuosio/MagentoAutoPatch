@@ -13,7 +13,7 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
     <module name="Osio_MagentoAutoPatch">
         <sequence>
-            <module name="Osio_MaillWithAttachment"/>
+            <module name="Osio_MagentoMailAttachment"/>
         </sequence>
     </module>
 </config>
