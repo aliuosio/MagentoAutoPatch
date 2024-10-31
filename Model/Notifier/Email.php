@@ -7,6 +7,7 @@ use Magento\Framework\Exception\FileSystemException;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\MailException;
 use Magento\Framework\Filesystem\Driver\File;
+use Magento\Framework\Mail\Template\TransportBuilder;
 use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 use Osio\MagentoAutoPatch\Model\Logger\Log;
 use Magento\Framework\Mail\Template\TransportBuilderFactory;
