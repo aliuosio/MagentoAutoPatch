@@ -1,12 +1,4 @@
 <?php declare(strict_types=1);
-/**
- * @author    Osiozekhai Aliu
- * @package   Osio_MagentoAutoPatch
- * @copyright Copyright (c) 2024 Osio
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 
 namespace Osio\MagentoAutoPatch\Model\Notifier;
 
@@ -17,15 +9,14 @@ use Magento\Framework\Exception\MailException;
 use Magento\Framework\Filesystem\Driver\File;
 use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 use Osio\MagentoAutoPatch\Model\Logger\Log;
-use Magento\Framework\Mail\Template\TransportBuilder;
+use Magento\Framework\Mail\Template\TransportBuilderFactory;
 
 class Email
 {
-
     /**
-     * @var TransportBuilder
+     * @var TransportBuilderFactory
      */
-    private TransportBuilder $transportBuilder;
+    private TransportBuilderFactory $transportBuilderFactory;
 
     /**
      * @var Log
@@ -43,18 +34,18 @@ class Email
     private File $file;
 
     /**
-     * @param TransportBuilder  $transportBuilder
-     * @param Log               $logger
-     * @param TimezoneInterface $timezone
-     * @param File              $file
+     * @param TransportBuilderFactory $transportBuilderFactory
+     * @param Log                     $logger
+     * @param TimezoneInterface       $timezone
+     * @param File                    $file
      */
     public function __construct(
-        TransportBuilder  $transportBuilder,
-        Log               $logger,
-        TimezoneInterface $timezone,
-        File              $file
+        TransportBuilderFactory $transportBuilderFactory,
+        Log                     $logger,
+        TimezoneInterface       $timezone,
+        File                    $file
     ) {
-        $this->transportBuilder = $transportBuilder;
+        $this->transportBuilderFactory = $transportBuilderFactory;
         $this->logger = $logger;
         $this->timezone = $timezone;
         $this->file = $file;
@@ -135,7 +126,8 @@ class Email
         ?string $recipientEmail
     ): ?TransportBuilder {
         try {
-            return $this->transportBuilder
+            $transportBuilder = $this->transportBuilderFactory->create();
+            return $transportBuilder
                 ->setTemplateIdentifier($templateId)
                 ->setTemplateOptions($this->getAreaAndStoreVars())
                 ->setTemplateVars($templateVars)
